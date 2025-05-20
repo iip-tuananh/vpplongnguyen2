@@ -531,7 +531,7 @@
                                  data-url="/{{$item->slug}}"
                                  data-limit="4"
                             >
-                                <div class="product-list grid tab-content-inner   grid-cols-2  lg:grid-cols-4	 gap-2 mt-2">
+                                <div class="product-list grid tab-content-inner   grid-cols-2  lg:grid-cols-5	 gap-2 mt-2">
                                     @foreach ($item->product as $item)
                                            @include('layouts.product.item',['pro'=>$item])
                                     @endforeach
