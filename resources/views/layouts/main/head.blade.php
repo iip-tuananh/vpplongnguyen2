@@ -483,6 +483,12 @@
         border: 1px solid #27ae60;
         color: #2d6a4f;
     }
+
+    @media (min-width: 768px) {
+        .d-md-block {
+            display: block !important;
+        }
+    }
 </style>
 <!--
 Theme Information
