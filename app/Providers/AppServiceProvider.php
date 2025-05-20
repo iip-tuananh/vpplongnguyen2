@@ -38,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('*', function ($view) 
+        view()->composer('*', function ($view)
         {
             if(Auth::guard('customer')->user() != null){
                 $profile = Auth::guard('customer')->user();
@@ -55,13 +55,13 @@ class AppServiceProvider extends ServiceProvider
             $pageContent = PageContent::where(['language'=>$language_current,'status'=> 1])->get();
             $categoryhome = Category::with([
                 'typeCate' => function ($query) {
-                    $query->with(['typetwo'])->where('status',1)->orderBy('id','DESC')->select('cate_id','id', 'name','avatar','slug','cate_slug'); 
+                    $query->with(['typetwo'])->where('status',1)->orderBy('id','DESC')->select('cate_id','id', 'name','avatar','slug','cate_slug');
                 }
             ])->where('status',1)->orderBy('id','ASC')->get(['id','name','imagehome','avatar','slug','content'])->map(function ($query) {
                 $query->setRelation('product', $query->product->take(8));
                 return $query;
             });
-            $banner = Banner::where(['status'=>1])->get(['id','image','link','title','description']);
+            $banner = Banner::where(['status'=>1])->get(['id','image','link','title','description', 'type']);
             $cartcontent = session()->get('cart', []);
             $viewold = session()->get('viewoldpro', []);
             $compare = session()->get('compareProduct', []);
@@ -88,7 +88,7 @@ class AppServiceProvider extends ServiceProvider
                 'servicehome'=>$servicehome,
                 'serviceCate'=>$serviceCate,
                 'giaiphap'=>$giaiphap
-                ]);    
-        });  
+                ]);
+        });
     }
 }

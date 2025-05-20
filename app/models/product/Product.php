@@ -2,6 +2,8 @@
 
 namespace App\models\product;
 
+use App\models\attribute\Attribute;
+use App\models\attribute\AttributeProductValue;
 use Illuminate\Database\Eloquent\Model;
 use App\models\language\Language;
 use Image,Auth;
@@ -33,6 +35,11 @@ class Product extends Model
     {
         return $this->hasOne(TypeProduct::class,'id','type_cate');
     }
+
+    public function attributes() {
+        return $this->belongsToMany(Attribute::class, 'attribute_product_values', 'product_id', 'attribute_id')->withPivot(['value_text', 'value_date']);
+    }
+
     public function createOrEdit($request)
     {
         $cat = Category::where('id',$request->category)->first('slug');
@@ -65,9 +72,10 @@ class Product extends Model
                 $query->status = $request->status;
                 $query->discountStatus = $request->discountStatus;
                 $query->service_id = $request->service_id;
+
                 $query->save();
             }
-            return $query;
+
         }else{
             $query = new Product();
             $query->name = json_encode($request->name);
@@ -93,9 +101,32 @@ class Product extends Model
             $query->status = $request->status;
             $query->discountStatus = $request->discountStatus;
             $query->service_id = $request->service_id;
+
             $query->save();
-            return $query;
+
         }
+
+        $inputAttrs = $request->input('attributes', []);
+        $syncData = [];
+
+        foreach ($inputAttrs as $a) {
+            $text = trim($a['value_text']   ?? '');
+            $dt   = trim($a['value_datetime'] ?? '');
+
+            if ($text === '' && $dt === '') {
+                continue;
+            }
+
+            $syncData[$a['id']] = [
+                'value_text'     => $text  !== '' ? $text  : null,
+                'value_date' => $dt    !== '' ? $dt    : null,
+            ];
+        }
+
+        $query->attributes()->sync($syncData);
+
+        return $query;
+
     }
     public function createClient($request)
     {
@@ -111,18 +142,18 @@ class Product extends Model
         $query->category = $request->category;
         $query->type_cate = $request->type_cate;
         $query->management_costs = $request->management_costs;
-        $query->address = $request->address; 
+        $query->address = $request->address;
         $query->district = $request->district;
         $query->author = Auth::guard('customer')->user()->id;
-        $query->content = toArrayLanguage($request->content); 
-        
+        $query->content = toArrayLanguage($request->content);
+
         $query->status = $request->status; //0-Sẵn sàng giao dịch 1-Ngừng giao dịch
         $query->acreage = $request->acreage;
-        
-        
-       
-        $query->percent_yourself = $request->percent_yourself; 
-        $query->cost_investment = $request->cost_investment; 
+
+
+
+        $query->percent_yourself = $request->percent_yourself;
+        $query->cost_investment = $request->cost_investment;
         $query->video = $request->video;
         if($request->hasFile('images')){
             foreach($images as $image){

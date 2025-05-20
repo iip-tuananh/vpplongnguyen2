@@ -156,6 +156,18 @@ $img = json_decode($product->images);
                                     <div>
                                         {!!languageName($product->description)!!}
                                     </div>
+
+                                    <div>
+                                        @foreach($product->attributes as $attribute)
+                                            <p> {{ languageName($attribute->name) }} :
+                                                <span style="font-weight: bold">
+                                                    {{ $attribute->type == 'text' ?
+                                                    $attribute->pivot->value_text :
+                                                    (\Carbon\Carbon::parse($attribute->pivot->value_date)->format('Y-m-d')) }}</span>
+                                            </p>
+
+                                        @endforeach
+                                    </div>
                                 </div>
                                 <div class="product-cta mb-0 mt-2 pt-2 border-neutral-50 border-dashed  border-t ">
                                     <form

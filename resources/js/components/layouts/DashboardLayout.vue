@@ -98,11 +98,22 @@ export default {
               path: "/flash-sales",
             },
             {
-              name: "Thêm chương trình khuyến mãi",
+              name: "Thêm chương trình flash sales",
               path: "/flash-sales/create",
             },
           ],
         },
+          {
+              icon: "mdi mdi-newspaper menu-icon",
+              name: "Quản lý thuộc tính sản phẩm",
+              route_name: "",
+              sub: [
+                  {
+                      name: "Danh sách thuộc tính",
+                      path: "/attributes",
+                  },
+              ],
+          },
         {
           icon: "mdi mdi-crosshairs-gps menu-icon",
           name: "Sản phẩm",

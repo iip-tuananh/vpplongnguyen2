@@ -56,19 +56,19 @@
           <call-center-group class="addThis_group" style="--color-primary: #e33333">
               <ul class="addThis_listing list-unstyled  dnone ">
                   <li class="addThis_item">
-                      <a class="addThis_item--icon" href="tel:19006750" rel="nofollow" >
+                      <a class="addThis_item--icon" href="tel:{{$setting->phone1}}" rel="nofollow" >
                           <img class="img-fluid" src="http://bizweb.dktcdn.net/100/502/483/themes/1011801/assets/addthis-phone.svg?1746694962638" alt="Gọi ngay cho chúng tôi" loading="lazy" width="44" height="44" />
                           <span class="tooltip-text">Gọi ngay cho chúng tôi</span>
                       </a>
                   </li>
                   <li class="addThis_item">
-                      <a class="addThis_item--icon" href="https://zalo.me/834141234794359222" target="_blank"  rel="nofollow">
+                      <a class="addThis_item--icon" href="https://zalo.me/{{$setting->phone1}}" target="_blank"  rel="nofollow">
                           <img class="img-fluid" src="http://bizweb.dktcdn.net/100/502/483/themes/1011801/assets/addthis-zalo.svg?1746694962638" alt="Chat với chúng tôi qua Zalo" loading="lazy" width="44" height="44" />
                           <span class="tooltip-text">Chat với chúng tôi qua Zalo</span>
                       </a>
                   </li>
                   <li class="addThis_item">
-                      <a class="addThis_item--icon" href="https://m.me/" target="_blank"  rel="nofollow">
+                      <a class="addThis_item--icon" href="{{$setting->facebook}}" target="_blank"  rel="nofollow">
                           <img class="img-fluid" src="http://bizweb.dktcdn.net/100/502/483/themes/1011801/assets/addthis-messenger.svg?1746694962638" alt="Chat với chúng tôi qua Messenger" loading="lazy" width="44" height="44" />
                           <span class="tooltip-text">Chat với chúng tôi qua Messenger</span>
                       </a>
@@ -255,7 +255,7 @@
                                       </button>
                                   </div>
 
-                                  <div class="cart-sidebar">
+                                  <div class="cart-sidebar flex flex-col h-full">
 
                                   </div>
 
@@ -533,29 +533,7 @@
               </p>
           </div>
       </portal-opener>
-      <promo-popup class="portal portal--modal"
-                   id="promo-popup"
-                   data-type="modal"
-                   data-animation="fade-in">
-          <dialog class="portal-dialog">
-              <div class=" flex items-center justify-center w-full h-full">
-                  <div class="portal-overlay"></div>
-                  <div class="relative z-10 animation p-6 md:p-4" >
-                      <button  type="button"
-                               id="PortalClose-promo-popup"
-                               class="portal-close-button w-[3.2rem] h-[3.2rem] rounded-full border border-white text-white flex items-center justify-center active:scale-95 transition-transform hover:animate-spin"
-                      >
-                          <i class="icon icon-cross"> </i>
-                      </button>
-                      <a href="collections/all.html">
-                          <img loading="lazy" class="object-contain" src="/frontend/js/banner-popup-img50e9.png?1746694962638"
-                               alt="Click ngay để nhận ưu đãi hot!!" width="520"
-                               height="640"/>
-                      </a>
-                  </div>
-              </div>
-          </dialog>
-      </promo-popup>
+
       <error-popup class="portal portal--modal portal--modal-sm" id="error-modal" data-type="modal" data-animation="fade-in">
           <dialog class="portal-dialog">
               <div class="  flex items-start justify-end  p-3 w-full h-full">

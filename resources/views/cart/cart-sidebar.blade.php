@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <div class="cart-right p-4">
+    <div class="cart-right p-4 mt-auto">
         <div class="cart-summary">
             <div class=" cart-summary-info p-4 lg:p-6 border-2 border-primary rounded-lg  divide-dashed divide-y divide-neutral-50">
                 <div class="cart-opener-group   divide-dashed divide-y divide-neutral-50">

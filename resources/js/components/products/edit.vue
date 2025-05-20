@@ -27,7 +27,7 @@
                     />
                   </div>
                 </div>
-              </div> 
+              </div>
               <div class="form-group">
                 <label>Nội dung</label>
                 <TinyMce
@@ -38,7 +38,7 @@
                     <div class="form-group" v-for="item,index in lang" :key="index">
                         <label v-if="index != 0">{{item.name}}</label>
                         <TinyMce v-if="index != 0" v-model="objData.content[index].content" />
-                        
+
                     </div>
                 </div>
               </div>
@@ -95,7 +95,7 @@
               </div>
               <div class="form-group">
                 <label>Danh mục</label>
-                
+
                 <vs-select class="selectExample" v-model="objData.category" placeholder="Danh mục" @change="findCategoryType()">
                   <vs-select-item
                     value="0"
@@ -135,6 +135,75 @@
               </div>
             </div>
           </div>
+
+            <div class="card">
+                <div class="card-body">
+
+
+                    <div class="form-group">
+                        <label>Chọn thuộc tính</label>
+                        <vs-select
+                            v-model="selectedAttrs"
+                            :multiple="true"
+                            placeholder="Chọn attribute"
+                            @change="onSelectAttrs"
+                        >
+                            <vs-select-item
+                                v-for="attr in availableAttributes"
+                                :key="attr.id"
+                                :value="{ id: attr.id, type: attr.type, name: JSON.parse(attr.name)[0].content }"
+                                :text="JSON.parse(attr.name)[0].content + ' (' + attr.type + ')'"
+                            />
+                        </vs-select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Thuộc tính đã chọn</label>
+                        <div class="attribute-chips">
+                            <vs-chip
+                                v-for="attr in selectedAttrs"
+                                :key="attr.id"
+                                closable
+                                @click="removeAttr(attr.id)"
+                                class="mr-2 mb-2"
+                            >
+                                {{ attr.name }}
+                            </vs-chip>
+                        </div>
+                    </div>
+
+
+                    <div
+                        v-for="attr in selectedAttrs"
+                        :key="attr.id"
+                        class="form-group mt-3"
+                        v-if="attrValues[attr.id]"
+                        style="margin-top: 40px !important;"
+                    >
+                        <label>{{ attr.name }}</label>
+
+
+                        <vs-input
+                            v-if="attr.type==='text'"
+                            v-model="attrValues[attr.id].value_text"
+                            placeholder="Nhập giá trị"
+                            class="w-100"
+                        />
+
+                        <el-date-picker
+                            v-else-if="attr.type==='datetime'"
+                            v-model="attrValues[attr.id].value_datetime"
+                            type="datetime"
+                            format="yyyy-MM-dd HH:mm:ss"
+                            value-format="yyyy-MM-dd HH:mm:ss"
+                            placeholder="Chọn ngày giờ"
+                            class="w-100"
+                        />
+                    </div>
+
+                </div>
+            </div>
         </div>
       </div>
       <div class="row fixxed">
@@ -169,6 +238,12 @@ export default {
       errors:[],
       cate: [],
       cateservice:[],
+
+        selectedAttrs:[],
+        allAttributes:[],
+        attrValues: [],
+
+
       objData: {
         id:0,
         name: [
@@ -225,16 +300,22 @@ export default {
     TinyMce,
     ImageMulti
   },
-  computed: {},
+  computed: {
+      availableAttributes() {
+          return this.allAttributes.filter(
+              a => !this.selectedAttrs.some(sa => sa.id === a.id)
+          );
+      }
+  },
   watch: {
   },
   methods: {
-    ...mapActions(["editId", "saveProduct", "listCate","listLanguage", "loadings","findTypeCate","findTypeCateTwo","listCateService"]),
+    ...mapActions(["editId", "saveProduct", "listCate","listLanguage", "loadings","findTypeCate","findTypeCateTwo","listCateService","AttributeList"]),
     showSettingLang(value){
       if(value == "title"){
         this.showLang.title = !this.showLang.title
       }
-      
+
     },
     showSettingLangExist(value,name = "content"){
       if(value == "content"){
@@ -271,7 +352,7 @@ export default {
               }
           });
       }
-      
+
     },
     saveProducts() {
       this.errors = [];
@@ -287,19 +368,32 @@ export default {
         })
         return;
       }else {
-        this.loadings(true);
-        
-        this.saveProduct(this.objData)
-          .then(response => {
-            this.loadings(false);
-            this.$router.push({name:'listProduct'});
-            this.$success('Sửa sản phẩm thành công');
-            // this.$route.push({name:'listProduct'});
-          })
-          .catch(error => {
-            this.loadings(false);
-            this.$error('Sửa sản phẩm thất bại');
+          this.loadings(true);
+
+          const attributes = this.selectedAttrs.map(a => {
+              const vals = this.attrValues[a.id] || {};
+              return {
+                  id: a.id,
+                  value_text:     a.type === 'text'     ? vals.value_text     : null,
+                  value_datetime: a.type === 'datetime' ? vals.value_datetime : null,
+              };
           });
+          this.objData.attributes = attributes
+          this.saveProduct(this.objData)
+              .then((response) => {
+                  this.loadings(false);
+                  this.$success("Sửa sản phẩm thành công");
+                  this.$route.push({ name: "listProduct" });
+              })
+              .catch((error) => {
+                  this.loadings(false);
+                  // this.$vs.notify({
+                  //   title: "Thất bại",
+                  //   text: "Thất bại",
+                  //   color: "danger",
+                  //   position: "top-right"
+                  // });
+              });
       }
     },
     editById() {
@@ -316,13 +410,27 @@ export default {
           }else{
             this.objData.size = JSON.parse(response.data.size);
           }
+
+          this.selectedAttrs = response.data.attribute_values.map(a => ({
+              id:   a.id,
+              name: a.name,
+              type: a.type
+          }));
+
+          response.data.attribute_values.forEach(av => {
+              this.$set(this.attrValues, av.id, {
+                  value_text:     av.value_text,
+                  value_datetime: av.value_datetime
+              });
+          });
+
           if(response.data.preserve == null){
             this.objData.preserve = [{detail: ""}]
           }else{
             this.objData.preserve = JSON.parse(response.data.preserve);
           }
       }).catch(error => {
-        console.log(12);
+        console.log(11);
       });
     },
     listLang(){
@@ -333,6 +441,20 @@ export default {
 
       })
     },
+      onSelectAttrs(newList) {
+          newList.forEach(a => {
+              if (!this.attrValues[a.id]) {
+                  this.$set(this.attrValues, a.id, {
+                      value_text: '',
+                      value_datetime: null
+                  });
+              }
+          });
+      },
+      removeAttr(id) {
+          this.selectedAttrs = this.selectedAttrs.filter(a => a.id !== id);
+          this.$delete(this.attrValues, id);
+      },
     changeLanguage(data){
       this.editById();
     },
@@ -340,7 +462,7 @@ export default {
       this.findTypeCate(this.objData.category).then(response => {
           this.type_cate = response.data;
         });
-        
+
     },
     remoteAr(index,key) {
       if(key == 'size'){
@@ -349,7 +471,7 @@ export default {
       if(key == 'preserve'){
         this.objData.preserve.splice(index, 1);
       }
-        
+
     },
     addInput(key) {
         var oj = {};
@@ -362,7 +484,7 @@ export default {
           oj.detail = "";
           this.objData.preserve.push(oj);
         }
-        
+
     },
     findCategoryTypeTwo() {
       this.findTypeCateTwo(this.objData.type_cate).then((response) => {
@@ -382,6 +504,10 @@ export default {
     this.listCate().then(response => {
       this.cate = response.data;
     });
+      this.AttributeList().then((response) => {
+          this.loadings(false);
+          this.allAttributes = response.data;
+      });
     this.listLang();
   }
 };

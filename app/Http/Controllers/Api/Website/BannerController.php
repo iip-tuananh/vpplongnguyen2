@@ -19,6 +19,7 @@ class BannerController extends Controller
                         'image' => $value['image'],
 				        'status' =>$value['status'],
                         'title' => $value['title'],
+                        'type' => $value['type'],
                         'description' => $value['description'],
 				        'link' => $value['link'],
 				 	]

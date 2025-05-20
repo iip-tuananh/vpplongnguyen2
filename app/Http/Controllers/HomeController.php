@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\models\flashsale\Flashsale;
 use App\User;
 use Illuminate\Http\Request;
 use App\models\product\Category;
@@ -31,6 +32,12 @@ class HomeController extends Controller
             ->select('id','category','name','discount','price','images','slug','cate_slug','type_slug','description')
             ->limit(10)->get();
 
-        return view('home',$data);
+        $data['flashSale'] = Flashsale::query()
+            ->with(['items.product'])
+            ->where('status', 'active')->first();
+
+
+
+        return view('home', $data);
     }
 }

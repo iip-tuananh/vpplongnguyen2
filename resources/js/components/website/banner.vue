@@ -60,6 +60,13 @@
                       <vs-select-item  value="2" text="Banner nhỏ" />
                     </vs-select>
                   </div>
+                    <div class="form-group">
+                        <label>Kiểu banner</label>
+                        <vs-select v-model="item.type">
+                            <vs-select-item value="primary" text="Banner chính" />
+                            <vs-select-item value="secondary" text="Banner phụ" />
+                        </vs-select>
+                    </div>
                 </div>
                 <hr style="border: 0.5px solid #04040426; width: 100%;">
               </div>
@@ -85,11 +92,12 @@ export default {
         {
           image: "",
           status:1,
+          type: 'primary',
           link:"",
           title:"",
           description:"",
         }
-      ] 
+      ]
     };
   },
   components: {},

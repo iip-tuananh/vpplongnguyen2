@@ -22,7 +22,7 @@
                 v-model="objData.name"
               />
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -39,6 +39,8 @@
           </div>
         </div>
       </div>
+
+
     </div>
     <div class="row fixxed">
       <div class="col-12">

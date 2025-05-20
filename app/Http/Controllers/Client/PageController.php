@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\models\flashsale\Flashsale;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\product\Product;
@@ -183,5 +185,13 @@ class PageController extends Controller
     public function fag()
     {
         return view('faq');
+    }
+
+    public function flashSale(Request $request) {
+        $flashSale = Flashsale::query()
+            ->with(['items.product'])
+            ->where('status', 'active')->firstOrFail();
+
+        return view('layouts.flash_sale', compact('flashSale'));
     }
 }

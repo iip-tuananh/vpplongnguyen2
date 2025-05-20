@@ -524,6 +524,14 @@ let _routers = [
 
             // 1605
             {
+                name: 'flashSalesList',
+                path: '/flash-sales',
+                component: _import('flashSales/list'),
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
                 name: 'createFlashSale',
                 path: '/flash-sales/create',
                 component: _import('flashSales/add'),
@@ -531,6 +539,41 @@ let _routers = [
                     requiresAuth: true,
                 }
             },
+            {
+                name: 'editFlashSale',
+                path: '/flash-sales/edit/:id_construction',
+                component: _import('flashSales/edit'),
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                name: 'listAttribute',
+                path: '/attributes/',
+                component: _import('attributes/list'),
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                name: 'attributes',
+                path: '/attributes',
+                component: _import('attributes/list'),
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                name: 'editAttribute',
+                path: '/attributes/edit/:id',
+                component: _import('attributes/edit'),
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+
+
+
 ];
 const router = new VueRouter({
     errorHandler(to, from, next, error) {

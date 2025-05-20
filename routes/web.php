@@ -46,6 +46,7 @@ Route::group(['namespace'=>'Client','middleware' => ['checkLanguage']], function
     Route::get('du-an-tieu-bieu/{slug}.html','PageController@duanTieuBieuDetail')->name('duanTieuBieuDetail');
     Route::get('cau-hoi-thuong-gap.html','PageController@fag')->name('fag');
     Route::get('giai-phap/{slug}.html','SolutionController@detail')->name('detailSolution');
+    Route::get('flash-sale.html', 'PageController@flashSale')->name('flashSale');
 
     Route::group(['prefix'=>'cong-trinh'], function(){
         Route::get('/tat-ca.html','ConstructionController@list')->name('allListConstruction');

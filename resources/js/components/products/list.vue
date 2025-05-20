@@ -4,7 +4,7 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title" >Danh sách sản phẩm</h4>
-            <p class="card-description">Thêm mới hoặc sửa sửa sản phẩm</p>
+            <p class="card-description">Thêm mới hoặc sửa sản phẩm</p>
 
             <router-link class="nav-link" :to="{name:'createProduct'}">
               <vs-button type="gradient" style="float:right;">Thêm mới</vs-button>
@@ -59,7 +59,7 @@ export default {
         id_item:"",
         slug:"",
       }
-      
+
     };
   },
   components: {},

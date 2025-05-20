@@ -62,7 +62,7 @@
               </div>
               <div class="form-group">
                 <label>Ảnh sản phẩm</label>
-                <ImageMulti v-model="objData.images" :title="'san-pham'"/> 
+                <ImageMulti v-model="objData.images" :title="'san-pham'"/>
               </div>
               <div class="form-group">
                 <label>Giá Sản phẩm</label>
@@ -141,9 +141,79 @@
                   <vs-select-item value="0" text="Không" />
                 </vs-select>
               </div>
+
+
             </div>
-          </div> 
+          </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Chọn thuộc tính</label>
+                        <vs-select
+                            v-model="selectedAttrs"
+                            :multiple="true"
+                            placeholder="Chọn attribute"
+                            @change="onSelectAttrs"
+                        >
+                            <vs-select-item
+                                v-for="attr in availableAttributes"
+                                :key="attr.id"
+                                :value="{ id: attr.id, type: attr.type, name: JSON.parse(attr.name)[0].content }"
+                                :text="JSON.parse(attr.name)[0].content + ' (' + attr.type + ')'"
+                            />
+                        </vs-select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Thuộc tính đã chọn</label>
+                        <div class="attribute-chips">
+                            <vs-chip
+                                v-for="attr in selectedAttrs"
+                                :key="attr.id"
+                                closable
+                                @click="removeAttr(attr.id)"
+                                class="mr-2 mb-2"
+                            >
+                                {{ attr.name }}
+                            </vs-chip>
+                        </div>
+                    </div>
+
+
+                    <div
+                        v-for="attr in selectedAttrs"
+                        :key="attr.id"
+                        class="form-group mt-3"
+                        v-if="attrValues[attr.id]"
+                    >
+                        <label>{{ attr.name }}</label>
+
+
+                        <vs-input
+                            v-if="attr.type==='text'"
+                            v-model="attrValues[attr.id].value_text"
+                            placeholder="Nhập giá trị"
+                            class="w-100"
+                        />
+
+                        <el-date-picker
+                            v-else-if="attr.type==='datetime'"
+                            v-model="attrValues[attr.id].value_datetime"
+                            type="datetime"
+                            format="yyyy-MM-dd HH:mm:ss"
+                            value-format="yyyy-MM-dd HH:mm:ss"
+                            placeholder="Chọn ngày giờ"
+                            class="w-100"
+                        />
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+
       </div>
       <div class="row fixxed">
         <div class="col-12">
@@ -156,7 +226,17 @@
       </div>
     </div>
 </template>
-
+<style scoped>
+.attribute-chips {
+    display: flex;
+    flex-wrap: wrap;
+}
+/* cho cả chip và close-icon đều là con trỏ */
+.attribute-chips .vs-chip,
+.attribute-chips .vs-chip .vs-chip__close {
+    cursor: pointer;
+}
+</style>
 
 <script>
 import { mapActions } from "vuex";
@@ -164,6 +244,7 @@ import TinyMce from "../_common/tinymce";
 import ImageMulti from "../_common/upload_image_multi";
 import "tinymce/icons/default/icons.min.js";
 import InputTag from "vue-input-tag";
+import {AttributeList} from "../../store/attribute/actions";
 export default {
   name: "product",
   data() {
@@ -174,6 +255,11 @@ export default {
       },
       type_cate: [],
       type_two:[],
+
+      selectedAttrs:[],
+      allAttributes:[],
+      attrValues: [],
+
       showLang: {
         title: false,
         content: false,
@@ -236,7 +322,13 @@ export default {
     ImageMulti,
     InputTag,
   },
-  computed: {},
+  computed: {
+      availableAttributes() {
+          return this.allAttributes.filter(
+              a => !this.selectedAttrs.some(sa => sa.id === a.id)
+          );
+      }
+  },
   watch: {
   },
   methods: {
@@ -248,7 +340,8 @@ export default {
       "listLanguage",
       "findTypeCate",
       "findTypeCateTwo",
-      "listCateService"
+      "listCateService",
+      "AttributeList"
     ]),
     saveProducts() {
       this.errors = [];
@@ -264,24 +357,33 @@ export default {
         });
         return;
       } else {
-        this.loadings(true);
+          this.loadings(true);
 
-        this.saveProduct(this.objData)
-          .then((response) => {
-            this.loadings(false);
-            this.$router.push({ name: "listProduct" });
-            this.$success("Thêm sản phẩm thành công");
-            this.$route.push({ name: "listProduct" });
-          })
-          .catch((error) => {
-            this.loadings(false);
-            // this.$vs.notify({
-            //   title: "Thất bại",
-            //   text: "Thất bại",
-            //   color: "danger",
-            //   position: "top-right"
-            // });
+          const attributes = this.selectedAttrs.map(a => {
+              const vals = this.attrValues[a.id] || {};
+              return {
+                  id: a.id,
+                  value_text:     a.type === 'text'     ? vals.value_text     : null,
+                  value_datetime: a.type === 'datetime' ? vals.value_datetime : null,
+              };
           });
+          this.objData.attributes = attributes
+          this.saveProduct(this.objData)
+              .then((response) => {
+                  this.loadings(false);
+                  this.$route.push({ name: "listProduct" });
+                  this.$success("Thêm sản phẩm thành công");
+                  this.$route.push({ name: "listProduct" });
+              })
+              .catch((error) => {
+                  this.loadings(false);
+                  // this.$vs.notify({
+                  //   title: "Thất bại",
+                  //   text: "Thất bại",
+                  //   color: "danger",
+                  //   position: "top-right"
+                  // });
+              });
       }
     },
     findCategoryType() {
@@ -301,7 +403,7 @@ export default {
       if(key == 'preserve'){
         this.objData.preserve.splice(index, 1);
       }
-        
+
     },
     addInput(key) {
         var oj = {};
@@ -314,7 +416,7 @@ export default {
           oj.detail = "";
           this.objData.preserve.push(oj);
         }
-        
+
     },
     showSettingLangExist(value, name = "content") {
       if (value == "content") {
@@ -368,6 +470,20 @@ export default {
         })
         .catch((error) => {});
     },
+      onSelectAttrs(newList) {
+          newList.forEach(a => {
+              if (!this.attrValues[a.id]) {
+                  this.$set(this.attrValues, a.id, {
+                      value_text: '',
+                      value_datetime: null
+                  });
+              }
+          });
+      },
+      removeAttr(id) {
+          this.selectedAttrs = this.selectedAttrs.filter(a => a.id !== id);
+          this.$delete(this.attrValues, id);
+      },
   },
   mounted() {
     this.loadings(true);
@@ -379,6 +495,11 @@ export default {
       this.loadings(false);
       this.cateservice = response.data;
     });
+      this.AttributeList().then((response) => {
+          this.loadings(false);
+          this.allAttributes = response.data;
+      });
+
     this.listLang();
   },
 };

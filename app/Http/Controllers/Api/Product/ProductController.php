@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\Product;
 
+use App\models\attribute\Attribute;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\product\Product;
@@ -41,6 +43,22 @@ class ProductController extends Controller
             'id'=> $id
         ])
         ->first();
+
+        $attrValues = [];
+        foreach($data->attributes as $a) {
+            $attrValues[] = [
+                'id'     => $a->id,
+                'name'     => languageName($a->name),
+                'type'     => $a->type,
+                'value_text'     => $a->pivot->value_text,
+                'value_datetime' => $a->pivot->value_date
+                    ? Carbon::parse($a->pivot->value_date)
+                        ->format('Y-m-d H:i:s')
+                    : null,
+                ];
+        }
+        $data->attribute_values = $attrValues;
+
         return response()->json([
             'data' => $data,
             'message' => 'success'
@@ -61,9 +79,9 @@ class ProductController extends Controller
             }
         }
         $query->delete();
-       
+
         return response()->json([
             'message' => 'Delete success'
-        ]); 
+        ]);
     }
 }

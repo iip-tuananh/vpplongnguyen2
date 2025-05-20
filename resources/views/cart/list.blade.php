@@ -114,50 +114,55 @@ Bún đậu mắm tôm Lynh
 
                         </div>
 
-                        <div class="mt-6 w-full flex justify-end items-center gap-4">
-                           <!-- Tổng tiền -->
-                           <div class="text-right">
-                              <p class="text-base">Tổng tiền:</p>
-                              <p class="text-2xl font-bold text-pink-600">{{ number_format($total) }}₫</p>
-                           </div>
-                           <!-- Nút thanh toán -->
 
-                           <div class="cart-submit">
+                         <div class="mt-6 w-full flex flex-col items-end space-y-4">
+                             <div class="text-right">
+                                 <p class="text-base">Tổng tiền: <span class="text-2xl font-bold text-pink-600"> {{ number_format($total) }}₫</span></p>
+                             </div>
 
+                             <div class="sm:w-auto">
+                                 <a href="{{ route('checkout') }}">
+                                     <button
+                                         type="button"
+                                         class="btn btn--large w-full sm:w-auto font-semibold bg-primary text-white inline-flex justify-center items-center gap-2"
+                                     >
+                                         THANH TOÁN
+                                         <i class="icon icon-arrow-login"></i>
+                                     </button>
+                                 </a>
+                             </div>
+                         </div>
 
-                              <a href="{{ route('checkout') }}">
-                                 <button type="button" class="btn w-full btn--large font-semibold  bg-primary text-white inline-flex  justify-center items-center gap-2">
-                                    THANH TOÁN
-                                    <i class="icon icon-arrow-login"></i>
-                                 </button>
-                              </a>
-
-
-                           </div>
-                        </div>
                      </div>
                   </form>
 
-                  <div class="cart-empty ">
+                  <div class="cart-empty w-full">
 
                   </div>
                @else
-                  <div class="cart-empty ">
-                     <div class=" bg-background px-gutter lg:px-6 py-6 rounded-sm  relative text-center">
-                        <div class="flex-col mx-auto gap-4 items-center justify-center">
-                           <img class="aspect-square object-contain" src="//theme.hstatic.net/200000817091/1001225822/14/cart_empty_background.png?v=68" alt="cart_empty_background" width="320" height="320">
-                           <h2 class="text-h4  font-semibold">
-                              Giỏ hàng chưa có gì!
-                           </h2>
-                           <p>
-                              Hãy tìm sản phẩm ứng ý và thêm vào giỏ hàng bạn nhé
-                           </p>
-                           <a class="btn font-semibold bg-primary text-white" href="/collections/all" title="Tiếp tục mua sắm">
-                              Tiếp tục mua sắm
-                           </a>
+
+                    <div class="cart-empty w-full">
+                        <div class="bg-background px-gutter lg:px-6 py-6 rounded-sm">
+                            <div class="flex flex-col items-center justify-center mx-auto max-w-md space-y-4 text-center">
+                                <img
+                                    class="w-80 h-80 object-contain"
+                                    src="//theme.hstatic.net/200000817091/1001225822/14/cart_empty_background.png?v=68"
+                                    alt="Giỏ hàng trống">
+                                <h2 class="text-h4 font-semibold">
+                                    Giỏ hàng chưa có gì!
+                                </h2>
+                                <p class="text-base leading-relaxed">
+                                    Hãy tìm sản phẩm ứng ý và thêm vào giỏ hàng bạn nhé
+                                </p>
+                                <a
+                                    class="btn font-semibold bg-primary text-white px-6 py-2"
+                                    href="/collections/all"
+                                    title="Tiếp tục mua sắm">
+                                    Tiếp tục mua sắm
+                                </a>
+                            </div>
                         </div>
-                     </div>
-                  </div>
+                    </div>
                @endif
 
 

@@ -24,7 +24,7 @@ class ProductController extends Controller
     }
     public function allListCate($danhmuc)
     {
-        
+
         if($danhmuc == "tat-ca"){
             $data['list'] = Product::where('status',1)->orderBy('id','DESC')->select('id','category','name','discount','price','images','slug','description')
             ->paginate(12);
@@ -122,7 +122,7 @@ class ProductController extends Controller
                 }else{
                     $product = $product->where('status',1)->where('category',$request->cate)->orderBy('discount','DESC');
                 }
-                
+
             }elseif($request->param == 'price-desc'){
                 if(!empty($request->typecate)){
                     $product = $product->where('status',1)->where('type_cate',$request->typecate)->orderBy('price','DESC');
@@ -130,7 +130,7 @@ class ProductController extends Controller
                 else{
                     $product = $product->where('status',1)->where('category',$request->cate)->orderBy('price','DESC');
                 }
-                
+
             }elseif($request->param == 'price-asc'){
                 if(!empty($request->typecate)){
                     $product = $product->where('status',1)->where('type_cate',$request->typecate)->orderBy('price','ASC');
@@ -138,7 +138,7 @@ class ProductController extends Controller
                 else{
                     $product = $product->where('status',1)->where('category',$request->cate)->orderBy('price','ASC');
                 }
-                
+
             }
         }
         $product = $product->get();
@@ -150,10 +150,11 @@ class ProductController extends Controller
     {
         $data['product'] = Product::with([
             'typeCate' => function ($query) {
-                $query->select('id', 'name','avatar','slug'); 
+                $query->select('id', 'name','avatar','slug');
             },
+            'attributes',
             'cate' => function ($query) {
-                $query->where('status',1)->limit(5)->select('id','name','avatar','slug'); 
+                $query->where('status',1)->limit(5)->select('id','name','avatar','slug');
             },
         ])->where('slug',$id)->first(['id','name','images','type_cate','category','sku','discount','price','content','size','description','slug','preserve','created_at']);
         $data['goiy'] = Product::where('status',1)->limit(8)->get(['id','name','images','discount','price','slug','cate_slug','type_slug']);
@@ -212,15 +213,15 @@ class ProductController extends Controller
             }
             session()->put('compareProduct', $compare);
             $compareProduct = session()->get('compareProduct', []);
-            
+
             return response()->json([
                 'data'=> $compareProduct,
                 'qty'=> count($compareProduct),
                 'message' => 'success'
             ]);
-            
+
         }
-        
+
     }
     public function removeCompare(Request $request)
     {
@@ -235,7 +236,7 @@ class ProductController extends Controller
             return response()->json(['html'=>$view]);
         }
 
-        
+
     }
     public function compareList()
     {
@@ -251,5 +252,5 @@ class ProductController extends Controller
          ->paginate(12);
          return view('product.search',$data);
     }
-    
+
 }

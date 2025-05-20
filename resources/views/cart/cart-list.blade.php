@@ -74,24 +74,20 @@
 
 </div>
 
-<div class="mt-6 w-full flex justify-end items-center gap-4">
-    <!-- Tổng tiền -->
+<div class="mt-6 w-full flex flex-col items-end space-y-4">
     <div class="text-right">
-        <p class="text-base">Tổng tiền:</p>
-        <p class="text-2xl font-bold text-pink-600">{{ number_format($total) }}₫</p>
+        <p class="text-base">Tổng tiền: <span class="text-2xl font-bold text-pink-600"> {{ number_format($total) }}₫</span></p>
     </div>
-    <!-- Nút thanh toán -->
 
-    <div class="cart-submit">
-
+    <div class="sm:w-auto">
         <a href="{{ route('checkout') }}">
-            <button type="button" class="btn w-full btn--large font-semibold  bg-primary text-white inline-flex  justify-center items-center gap-2">
+            <button
+                type="button"
+                class="btn btn--large w-full sm:w-auto font-semibold bg-primary text-white inline-flex justify-center items-center gap-2"
+            >
                 THANH TOÁN
                 <i class="icon icon-arrow-login"></i>
             </button>
         </a>
-
-
-
     </div>
 </div>

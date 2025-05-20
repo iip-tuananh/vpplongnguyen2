@@ -6,7 +6,7 @@ window.addEventListener("DOMContentLoaded", () => {
 			this.notStartedAction = this.dataset.notStarted
 			this.endAction = this.dataset.ended
 			this.sectionId = this.dataset.id
-	 
+
 			this.items = this.querySelectorAll('.flashsale__item')
 			this.carousel = this.querySelector('ega-carousel')
 		}
@@ -25,8 +25,8 @@ window.addEventListener("DOMContentLoaded", () => {
 							break;
 					}
 				 }
-				 
-			 
+
+
 			 })
 		}
 		onFlashSaleSNotStarted(){
@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		}
 		onFlashSaleStart(){
 			this.toggleSection(true)
-		
+
 		}
 		onFlashSaleEnd(){
 			this.toggleSection(this.endAction != 'hide')
@@ -45,12 +45,12 @@ window.addEventListener("DOMContentLoaded", () => {
 				el.style.order = this.getRandomNumber(this.items.length )
 				})
 			}
-	
+
 		}
 		 getRandomNumber(max) {
 			return Math.floor(Math.random() * max) + 1;
 		}
-	
+
 		toggleSection(show){
 			let section = document.querySelector(`#${this.sectionId}`)
 			if(!section) return;
@@ -64,11 +64,11 @@ window.addEventListener("DOMContentLoaded", () => {
 			}else{
 				section.classList.add('hidden')
 			}
-			
+
 		}
 	}
 	defineElement("flashsale-section", FlashsaleSection);
-	
+
 	class CountDownTimer extends HTMLElement {
 		constructor(){
 			super()
@@ -81,7 +81,7 @@ window.addEventListener("DOMContentLoaded", () => {
 			this.sectionId = this.dataset.id
 			this.countDownState = '';
 			this.timer = this.querySelector('.flashsale__countdown')
-	 
+
 		}
 		connectedCallback(){
 			if(this.type == 'hours'){
@@ -90,17 +90,18 @@ window.addEventListener("DOMContentLoaded", () => {
 				if(this.dateInWeeks && this.checkCountDownStart()){
 				   let currentDay = new Date().getDay();
 				   let currentDate = new Date().toLocaleString('vi-VN', { month: 'numeric', day: 'numeric', year: 'numeric' })
-				 
+
 				   let startDate =  this.dateInWeeks.includes(currentDay) ? currentDate  : null;
 					if(startDate){
 						startDate = startDate.split('/').map(item => this.padZero(item,2)).join('/')
 					}
 				   this.start =convertTime(startDate + '-' + this.startTime);
 				   this.end = convertTime(startDate + '-' + this.endTime);
-	
+
 				}
 			}else{
 				this.end = convertTime(this.endDate);
+                console.log(this.end)
 				this.start =  convertTime(this.startDate);
 			}
 			this.countdown()
@@ -109,7 +110,7 @@ window.addEventListener("DOMContentLoaded", () => {
 			let isStarted = this.checkCountDownStart();
 			let isEnded = this.checkCountDownEnd();
 			let status = "";
-			
+
 			if(!isStarted){
 				status = "not-started"
 				let distance =  this.calcDistance(this.start);
@@ -122,9 +123,9 @@ window.addEventListener("DOMContentLoaded", () => {
 				let distance =  this.calcDistance(this.end);
 				 this.renderCountDown(distance)
 				this.timer.classList.remove('hidden')
-				
+
 				this.classList.add('active')
-	
+
 			}
 			if(isStarted && isEnded){
 				this.timer.innerHTML = ''
@@ -132,7 +133,7 @@ window.addEventListener("DOMContentLoaded", () => {
 				this.classList.remove('active')
 			}
 					this.classList.add(status)
-	
+
 			if(status && status != this.countDownState){
 				this.querySelectorAll('.flashsale__countdown-label').forEach(el => el.classList.add('hidden'))
 				this.querySelector(`[data-label="${status}"]`).classList.remove('hidden')
@@ -149,8 +150,8 @@ window.addEventListener("DOMContentLoaded", () => {
 				  target: this,
 				  id: this.sectionId
 				});
-						
-	
+
+
 			}
 			if(isEnded){
 			   return;
@@ -159,12 +160,12 @@ window.addEventListener("DOMContentLoaded", () => {
 				this.countdown()
 		  });
 		}
-	
-	
+
+
 		checkCountDownStart(){
 			let currentDate = new Date().getTime();
 			return this.start && currentDate >= this.start
-			
+
 		}
 		checkCountDownEnd(){
 			let currentDate = new Date().getTime();
@@ -221,7 +222,7 @@ window.addEventListener("DOMContentLoaded", () => {
 				let seconds =this.renderItem(times[3], 'Giây', true);
 				const html = days > 0 ? [this.renderItem(times[0], 'Ngày'), hours, minutes, seconds] : [hours, minutes, seconds];
 
-				
+
 				this.timer.innerHTML =  `<div class="ega-badge-ctd flex items-center gap-2">${html.join(`<div class="ega-badge-dot font-semibold text-h5">:</div>`)}</div>`;
 	  }
 		 calcDistance(endTime) {
@@ -230,11 +231,11 @@ window.addEventListener("DOMContentLoaded", () => {
 			distance = endTime - now;
 			return distance;
 	   }
-		
+
 	}
-	
+
 	defineElement("countdown-timer", CountDownTimer);
-	
+
 	class StockCountdown extends HTMLElement {
 		constructor(){
 			super()
@@ -243,12 +244,12 @@ window.addEventListener("DOMContentLoaded", () => {
 			this.maxQty = parseInt(this.dataset.maxQty)
 			this.available = this.dataset.available
 			this.sectionId = this.dataset.id
-	
+
 		}
 		connectedCallback(){
-		
+
 		let program = window.flahsaleProgrammes.find( item => item.id == this.sectionId)
-	
+
 		if(program){
 				this.action(program.status)
 		}
@@ -256,13 +257,13 @@ window.addEventListener("DOMContentLoaded", () => {
 				 if(e.id == this.sectionId && e.status){
 					 this.action(e.status)
 				 }
-				 
-			 
+
+
 			 })
 		}
 		disconnectedCallback(){
 			this.subscriber()
-		}	
+		}
 		action(status){
 			switch(status){
 			case 'not-started':
@@ -284,9 +285,9 @@ window.addEventListener("DOMContentLoaded", () => {
 				percent = 5
 			}
 			return percent
-		
+
 		}
-		
+
 		init(){
 			let percent = this.calcPercent()
 			let label = ''
@@ -296,9 +297,9 @@ window.addEventListener("DOMContentLoaded", () => {
 			if(percent <= 5){
 				label = openingText
 			}
-	
+
 			if( percent > 5 && this.realQty > runOutQty ){
-				let soldQty = this.maxQty - this.realQty 
+				let soldQty = this.maxQty - this.realQty
 				label = soldText.replace('[soluongdaban]',soldQty)
 			}
 			if( isStockManagement && percent > 5 && this.realQty < runOutQty){
@@ -311,7 +312,7 @@ window.addEventListener("DOMContentLoaded", () => {
 			let html = this.render(percent, label);
 			this.innerHTML = html
 		}
-		
+
 		render(percent, label){
 			return `<div class="stock-countdown-inner">
 						<div class="stock-label mb-1">${label}</div>
@@ -320,24 +321,24 @@ window.addEventListener("DOMContentLoaded", () => {
 						</div>
 					</div>`
 		}
-		
+
 	}
-	
+
 	defineElement("stock-countdown", StockCountdown);
-	
+
 	class FlashsaleTabs extends TabsComponent {
 		constructor(){
 			super()
-			
+
 		}
 		connectedCallback(){
 		 this.updateStatus()
 		this.toggleActiveCountDown()
 		 this.subscriber = subscribe(window.themeConfigs.countdownUpdate, e => {
 				 this.updateStatus()
-			 
+
 			 })
-	 
+
 		}
 		toggleActiveCountDown(){
 			 this.querySelectorAll('countdown-timer[data-id]').forEach((e)=>{
@@ -355,7 +356,7 @@ window.addEventListener("DOMContentLoaded", () => {
 				 if(button){
 					 this.updateTab(button,item.status)
 				 }
-				 
+
 			})
 			let activeButton = this.querySelector('.flashsale-tab.ongoing')
 			if(activeButton){
@@ -387,6 +388,6 @@ window.addEventListener("DOMContentLoaded", () => {
 			}
 		}
 	}
-	
+
 	defineElement("flashsale-tabs", FlashsaleTabs)
 	})
