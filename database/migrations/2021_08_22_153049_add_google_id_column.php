@@ -13,9 +13,9 @@ class AddGoogleIdColumn extends Migration
      */
     public function up()
     {
-        Schema::table('customer', function ($table) {
-            $table->string('google_id')->nullable();
-        });
+        // Schema::table('customer', function ($table) {
+        //     $table->string('google_id')->nullable();
+        // });
     }
 
     /**
