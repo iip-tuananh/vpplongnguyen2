@@ -48,12 +48,12 @@
                         <source
                             media="(min-width: 768px)"
                             srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
-                            data-srcset="../bizweb.dktcdn.net/100/502/483/themes/1011801/assets/flashsale_banner50e9.png?1746694962638"
+                            data-srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
                         >
                         <source
                             media="(max-width: 767px)"
                             srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
-                            data-srcset="../bizweb.dktcdn.net/thumb/large/100/502/483/themes/1011801/assets/flashsale_banner50e9.png?1746694962638"
+                            data-srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
                         >
                         <img
                             class="object-contain mx-auto"
