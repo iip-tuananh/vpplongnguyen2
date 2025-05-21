@@ -92,6 +92,7 @@
                             onclick="addToCart({{$pro->id}},1)"
                             class="btn bg- w-full addtocart-btn font-semibold add_to_cart  flex justify-center items-center gap-3"
                             aria-label="Thêm vào giỏ"
+                            {{ in_array($pro->id, $productFlashSaleIds) ? 'disabled' : '' }}
                             data-product="/{{$pro->slug}}"
                     >
                                                    <span class="loading-icon gap-1 hidden items-center justify-center">
@@ -100,7 +101,7 @@
                                                    <span class="w-1.5 h-1.5 bg-[currentColor] rounded-full animate-pulse"></span>
                                                    </span>
                         <span>
-                                                   Thêm vào giỏ
+                                                   {{ in_array($pro->id, $productFlashSaleIds) ? 'Flash Sale sắp bắt đầu' : 'Thêm vào giỏ' }}
                                                    </span>
                     </button>
                 </portal-opener>

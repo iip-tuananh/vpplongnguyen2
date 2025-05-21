@@ -5,6 +5,7 @@ namespace App\models\flashsale;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use App\models\language\Language;
+use Illuminate\Support\Facades\Log;
 use Image,Auth;
 use App\Customer;
 use App\models\product\Category;

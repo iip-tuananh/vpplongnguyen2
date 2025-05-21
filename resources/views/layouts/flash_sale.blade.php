@@ -94,7 +94,6 @@
                                             data-start-date="{{ \Carbon\Carbon::parse($flashSale->start_at)->format('d/m/Y') }}"
                                             data-start-time="{{ \Carbon\Carbon::parse($flashSale->start_time)->format('H:i:s') }}"
                                             data-end-time="{{ \Carbon\Carbon::parse($flashSale->end_time)->format('H:i:s') }}"
-                                            data-week="0,1,2,3,4,5,6"
                                         >
 
                                 <div class="flashsale__countdown-timer  flex-wrap  flashsale__countdown-wrapper flex items-center gap-2 md:gap-5 lg:w-auto w-full justify-center">

@@ -215,9 +215,10 @@ $img = json_decode($product->images);
                                                         type="button"
                                                         name="addtocart"
                                                         onclick="addToCart({{$product->id}},1)"
+                                                        {{ in_array($product->id, $productFlashSaleIds) ? 'disabled' : '' }}
                                                         class=" font-semibold  btn bg-[var(--color-addtocart-bg)] text-[var(--color-addtocart)] btn-add-to-cart w-full"
                                                 >
-                                                    <span> Thêm vào giỏ</span>
+                                                    <span> {{ in_array($product->id, $productFlashSaleIds) ? 'Flash Sale sắp bắt đầu' : 'Thêm vào giỏ' }} </span>
                                                     <span class="loading-icon gap-1 hidden items-center justify-center">
                               <span class="w-1.5 h-1.5 bg-[currentColor] rounded-full animate-pulse"></span>
                               <span class="w-1.5 h-1.5 bg-[currentColor] rounded-full animate-pulse"></span>
@@ -233,8 +234,9 @@ $img = json_decode($product->images);
                                                 name="buynow"
                                                 onclick="shopnow({{$product->id}},1)"
                                                 class=" font-semibold mt-2 btn bg-[var(--color-addtocart-color)] text-[var(--color-addtocart-bg)] border border-[var(--color-addtocart-bg)]  hover:bg-[var(--color-addtocart-bg)] hover:text-[var(--color-addtocart)] btn-buynow w-full"
+                                                {{ in_array($product->id, $productFlashSaleIds) ? 'disabled' : '' }}
                                             >
-                                                <span>    Mua ngay </span>
+                                                <span>  Mua ngay  </span>
                                                 <span class="loading-icon gap-1 hidden items-center justify-center">
                               <span class="w-1.5 h-1.5 bg-[currentColor] rounded-full animate-pulse"></span>
                               <span class="w-1.5 h-1.5 bg-[currentColor] rounded-full animate-pulse"></span>

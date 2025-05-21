@@ -145,7 +145,7 @@
                                 placeholder="Chọn thời gian"
                                 style="width:100%"
                                 format="HH:mm"
-                                value-format="HH:mm"
+                                value-format="HH:mm:ss"
                             />
                         </div>
 
@@ -157,7 +157,7 @@
                                 placeholder="Chọn thời gian"
                                 style="width:100%"
                                 format="HH:mm"
-                                value-format="HH:mm"
+                                value-format="HH:mm:ss"
                             />
                         </div>
 
@@ -346,6 +346,9 @@ export default {
             } else {
                 const startSec = this.toSeconds(this.form.start_time);
                 const endSec   = this.toSeconds(this.form.end_time);
+
+                console.log(this.form.start_time)
+                console.log(this.form.end_time)
 
                 if (endSec <= startSec) {
                     errs.push('Giờ kết thúc phải sau giờ bắt đầu');

@@ -368,7 +368,6 @@ export default {
         })
         return;
       }else {
-          this.loadings(true);
 
           const attributes = this.selectedAttrs.map(a => {
               const vals = this.attrValues[a.id] || {};
@@ -379,11 +378,13 @@ export default {
               };
           });
           this.objData.attributes = attributes
+
+          this.loadings(true);
           this.saveProduct(this.objData)
               .then((response) => {
                   this.loadings(false);
+                  this.$router.push({ name: "listProduct" });
                   this.$success("Sửa sản phẩm thành công");
-                  this.$route.push({ name: "listProduct" });
               })
               .catch((error) => {
                   this.loadings(false);

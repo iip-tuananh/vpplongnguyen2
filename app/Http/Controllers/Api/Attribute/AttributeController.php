@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Attribute;
 
 use App\models\attribute\Attribute;
+use App\models\attribute\AttributeProductValue;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\blog\BlogCategory;
@@ -42,6 +43,7 @@ class AttributeController extends Controller
     public function deleteCateBlog($id)
     {
         $query = Attribute::find($id);
+        AttributeProductValue::query()->where('attribute_id', $query->id)->delete();
         $query->delete();
 
         return response()->json(['message'=>'Delete Success'],200);

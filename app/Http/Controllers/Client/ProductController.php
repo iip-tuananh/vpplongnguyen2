@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\models\flashsale\Flashsale;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\product\Product;
@@ -160,6 +161,7 @@ class ProductController extends Controller
         $data['goiy'] = Product::where('status',1)->limit(8)->get(['id','name','images','discount','price','slug','cate_slug','type_slug']);
         $data['productlq'] = Product::where('category',$data['product']->category)->get(['id','name','images','discount','price','slug','cate_slug','type_slug','description']);
         $data['news'] = Blog::where('status',1)->limit(8)->get();
+
         return view('product.detail',$data);
     }
     public function compare(Request $request)

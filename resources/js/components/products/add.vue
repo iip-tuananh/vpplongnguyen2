@@ -371,9 +371,8 @@ export default {
           this.saveProduct(this.objData)
               .then((response) => {
                   this.loadings(false);
-                  this.$route.push({ name: "listProduct" });
+                  this.$router.push({ name: "listProduct" });
                   this.$success("Thêm sản phẩm thành công");
-                  this.$route.push({ name: "listProduct" });
               })
               .catch((error) => {
                   this.loadings(false);

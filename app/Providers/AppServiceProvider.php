@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\models\flashsale\Flashsale;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Session,View;
@@ -73,6 +74,10 @@ class AppServiceProvider extends ServiceProvider
             ->where('status',1)
             ->orderBy('id','DESC')
             ->get(['id','name','slug','avatar']);
+
+            $flashSale = Flashsale::query()->with(['items.product'])->where('status', 'active')->first();
+            $productFlashSaleIds = ($flashSale && $flashSale->status_label === 'upcoming') ? $flashSale->items->pluck('product_id')->toArray() : [];
+
             $view->with([
                 'promotio' => $promotio,
                 'setting' => $setting,
@@ -87,7 +92,8 @@ class AppServiceProvider extends ServiceProvider
                 'blogCate'=>$blogCate,
                 'servicehome'=>$servicehome,
                 'serviceCate'=>$serviceCate,
-                'giaiphap'=>$giaiphap
+                'giaiphap'=>$giaiphap,
+                'productFlashSaleIds'=>$productFlashSaleIds,
                 ]);
         });
     }

@@ -90,7 +90,7 @@ let _routers = [
             },
             {
                 name: 'edit_product',
-                path: '/product/edit/:id_construction',
+                path: '/product/edit/:id',
                 component: _import('products/edit'),
                 meta: {
                     requiresAuth: true,

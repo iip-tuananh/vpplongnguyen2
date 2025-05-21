@@ -103,8 +103,10 @@
 <link rel="preconnect" href="https://egany.com/" crossorigin>
 
 
-<link rel="icon" href="/frontend/images/favicon50e9.png?1746694962638" type="image/x-icon">
-
+<link rel="icon" href="{{url(''.$setting->favicon)}}"
+      type="image/x-icon" />
+<link rel="apple-touch-icon"
+      href="{{url(''.$setting->favicon)}}">
 <link rel="preconnect" href="https://bizweb.dktcdn.net/">
 <link rel="preconnect" href="https://egany.com/">
 <link rel="preconnect" href="https://egany.com/" crossorigin>

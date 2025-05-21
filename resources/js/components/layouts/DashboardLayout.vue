@@ -103,17 +103,6 @@ export default {
             },
           ],
         },
-          {
-              icon: "mdi mdi-newspaper menu-icon",
-              name: "Quản lý thuộc tính sản phẩm",
-              route_name: "",
-              sub: [
-                  {
-                      name: "Danh sách thuộc tính",
-                      path: "/attributes",
-                  },
-              ],
-          },
         {
           icon: "mdi mdi-crosshairs-gps menu-icon",
           name: "Sản phẩm",
@@ -130,7 +119,11 @@ export default {
             {
               name: "Loại sản phẩm",
               path: "/product/type",
-            }
+            },
+              {
+                  name: "Danh sách thuộc tính",
+                  path: "/attributes",
+              },
           ],
         },
         {

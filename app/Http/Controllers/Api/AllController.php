@@ -29,7 +29,7 @@ class AllController extends Controller
                 'data' => 'fail'
             ],500);
         }
-        
+
     }
     public function uploadImageMulti(Request $request)
     {
@@ -52,7 +52,7 @@ class AllController extends Controller
         $file_name = $request->file->getClientOriginalName();
         $generated_new_name = time() . '.' . $request->file->getClientOriginalExtension();
         $request->file->move($upload_path, $generated_new_name);
-         
+
         $insert['title'] = $generated_new_name;
         return response()->json([
             'messenge' => 'success',
