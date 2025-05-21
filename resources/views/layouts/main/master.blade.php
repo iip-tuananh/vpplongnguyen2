@@ -4,9 +4,14 @@
         @include('layouts.main.head')
     </head>
    <body class="ega-theme index ">
-{{--   <a href="#" title="Siêu khuyến mãi giảm giá sốc" class="d-md-block d-none">--}}
-{{--       <img alt="Siêu khuyến mãi giảm giá sốc" class="lazyload loaded" src="https://bizweb.dktcdn.net/100/450/748/themes/872052/assets/banner_top.jpg?1663035745304" data-src="https://bizweb.dktcdn.net/100/450/748/themes/872052/assets/banner_top.jpg?1663035745304" data-was-processed="true">--}}
-{{--   </a>--}}
+
+   <a href="#"
+      title="Siêu khuyến mãi giảm giá sốc"
+      class="banner-top d-none d-md-block">
+       <img
+           src="https://bizweb.dktcdn.net/100/450/748/themes/872052/assets/banner_top.jpg?1663035745304"
+           alt="Siêu khuyến mãi giảm giá sốc">
+   </a>
 
       @include('layouts.header.index')
       @include('layouts.main.sub-header')

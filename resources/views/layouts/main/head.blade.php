@@ -495,6 +495,73 @@
 
 </style>
 <style>
+    /* === Banner === */
+    /* === Banner === */
+    .banner-top {
+        display: none;
+    }
+
+    .header {
+        position: fixed;
+        top: 0;              /* mặc định ở mobile top = 0 */
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+        background: #fff;
+        backface-visibility: hidden;
+        will-change: transform;
+        transform: translateZ(0);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+        @media (min-width: 768px) {
+        .banner-top {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 70px;        /* chiều cao cố định */
+            overflow: hidden;
+            z-index: 9999;         /* thấp hơn header nếu cần */
+            /* promote lên GPU */
+            backface-visibility: hidden;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+        .banner-top img {
+            width: 100%;
+            height: 100%;
+            /*object-fit: cover;*/
+            display: block;
+        }
+
+            .header {
+                top: 70px;         /* chỉ màn ≥768px mới dùng top=100px */
+            }
+    }
+
+
+
+    /* === Header === */
+    /*.header {*/
+    /*    position: fixed;*/
+    /*    top: 70px;            !* ngay dưới banner *!*/
+    /*    left: 0;*/
+    /*    width: 100%;*/
+    /*    height: auto;          !* hoặc auto nếu bạn có padding *!*/
+    /*    z-index: 9999;*/
+    /*    background: #fff;*/
+    /*    !* promote lên GPU *!*/
+    /*    backface-visibility: hidden;*/
+    /*    will-change: transform;*/
+    /*    transform: translateZ(0);*/
+    /*    box-shadow: 0 1px 4px rgba(0,0,0,0.1);*/
+    /*}*/
+
+    /* === Đẩy nội dung xuống === */
+    body > .main-content {
+        /* nếu phần nội dung chính bắt đầu ngay sau header */
+        margin-top: calc(100px + 60px);
+    }
 
 </style>
 <!--
