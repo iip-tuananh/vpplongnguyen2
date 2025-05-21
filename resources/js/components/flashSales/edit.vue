@@ -53,8 +53,8 @@
                                 </thead>
                                 <tbody>
                                 <tr v-for="(item, idx) in form.items" :key="idx">
-                                    <td>{{ getProductName(item.product_id) || '—' }}</td>
-                                    <td>{{ getCategoryName(item.product_id) || '—' }}</td>
+                                    <td>{{  getProductName(item.product_id, item) }}</td>
+                                    <td>{{ getCategoryName(item.product_id, item) }}</td>
                                     <td><vs-input :value="formatCurrency(item.price)" disabled /></td>
                                     <td><vs-input :value="item.discount + '%'" disabled /></td>
                                     <td><vs-input :value="formatCurrency(item.sale_price)" disabled /></td>
@@ -71,30 +71,58 @@
                 </div>
             </div>
 
-            <el-dialog
-                title="Chọn sản phẩm"
-                :visible.sync="showProductModal"
-                width="60%"
-            >
-                <vs-table stripe :data="products" max-items="10" pagination>
-                    <template slot="header">
-                        <vs-th>Tên sản phẩm</vs-th>
-                        <vs-th>Danh mục</vs-th>
-                        <vs-th width="100">Chọn</vs-th>
-                    </template>
-                    <template slot="default" slot-scope="{ data }">
-                        <vs-tr v-for="p in data" :key="p.id">
-                            <vs-td>{{ p.name }}</vs-td>
-                            <vs-td>{{ p.category }}</vs-td>
-                            <vs-td class="text-center">
-                                <vs-button size="small" @click="addItemFromModal(p)">
-                                    Chọn
-                                </vs-button>
-                            </vs-td>
-                        </vs-tr>
-                    </template>
-                </vs-table>
-            </el-dialog>
+            <template>
+                <el-dialog
+                    title="Chọn sản phẩm"
+                    :visible.sync="showProductModal"
+                    width="60%"
+                >
+                    <!-- Search bar -->
+                    <div class="flex items-center mb-4">
+                        <!-- Nhập text -->
+                        <el-input
+                            v-model="searchQuery"
+                            placeholder="Tìm theo tên sản phẩm..."
+                            clearable
+                            style="flex:1; margin-right: 8px;"
+                            @keyup.enter="searchProducts"
+                        />
+                        <!-- Nút tìm kiếm -->
+                        <el-button
+                            type="primary"
+                            icon="el-icon-search"
+                            @click="searchProducts"
+                        >
+                            Tìm kiếm
+                        </el-button>
+                    </div>
+
+                    <!-- Table -->
+                    <vs-table
+                        stripe
+                        :data="products"
+                        max-items="10"
+                        pagination
+                    >
+                        <template slot="header">
+                            <vs-th>Tên sản phẩm</vs-th>
+                            <vs-th>Danh mục</vs-th>
+                            <vs-th width="100">Chọn</vs-th>
+                        </template>
+                        <template slot="default" slot-scope="{ data }">
+                            <vs-tr v-for="item in data" :key="item.id">
+                                <vs-td>{{ item.name }}</vs-td>
+                                <vs-td>{{ item.category }}</vs-td>
+                                <vs-td class="text-center">
+                                    <vs-button size="small" @click="addItemFromModal(item)">
+                                        Chọn
+                                    </vs-button>
+                                </vs-td>
+                            </vs-tr>
+                        </template>
+                    </vs-table>
+                </el-dialog>
+            </template>
 
             <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
@@ -187,6 +215,7 @@ export default {
             isEdit: false,
             flashSaleId: null,
             languages: [],
+            searchQuery: '',
             showLang: { name: false, description: false },
             products: [],
             showProductModal: false,
@@ -213,6 +242,17 @@ export default {
             saveFlashSale:  "saveFlashSale",
             setLoading:       "loadings",
         }),
+        async searchProducts() {
+            const res = await this.fetchProducts({ keyword: this.searchQuery });
+
+            this.products = res.data.map(p => ({
+                id: p.id,
+                name: JSON.parse(p.name)[0].content,
+                category: JSON.parse(p.cate)[0].content,
+                price:    p.price,
+                discount: p.discount
+            }));
+        },
 
         toggleLang(field) {
             this.showLang[field] = !this.showLang[field];
@@ -223,13 +263,14 @@ export default {
             });
         },
 
-        getProductName(id) {
+        getProductName(id, item) {
             const p = this.products.find(x => x.id === id);
-            return p ? p.name : "";
+            return p && p.name ? p.name : item.name;
         },
-        getCategoryName(id) {
+
+        getCategoryName(id, item) {
             const p = this.products.find(x => x.id === id);
-            return p ? p.category : "";
+            return p && p.category ? p.category : item.category;
         },
 
         formatCurrency(v) {
@@ -258,17 +299,42 @@ export default {
         },
 
         addItemFromModal(p) {
+            const exists = this.form.items.some(item => item.product_id === p.id);
+            if (exists) {
+                this.$message.warning('Sản phẩm này đã được thêm rồi');
+                return;
+            }
+
+            const sale = this.computeSalePrice(p.price, p.discount);
+
             this.form.items.push({
                 product_id:  p.id,
+                name:    p.name,
+                category:     p.category,
                 price:       p.price,
                 discount:    p.discount,
-                sale_price:  p.sale_price
+                sale_price:  sale
             });
             this.showProductModal = false;
         },
 
         removeItem(idx) {
             this.form.items.splice(idx, 1);
+        },
+
+        toSeconds(time) {
+            let h, m, s;
+            if (typeof time === 'string') {
+                // "HH:mm:ss"
+                [h, m, s] = time.split(':').map(Number);
+            } else if (time instanceof Date) {
+                h = time.getHours();
+                m = time.getMinutes();
+                s = time.getSeconds();
+            } else {
+                return 0;
+            }
+            return h * 3600 + m * 60 + s;
         },
 
         async saveFs() {
@@ -278,11 +344,8 @@ export default {
             if (!this.form.start_at || !this.form.start_time || !this.form.end_time ) {
                 errs.push('Chọn đủ thời gian, giờ băt đầu và kết thúc');
             } else {
-                const [sh, sm, ss] = this.form.start_time.split(':').map(Number);
-                const [eh, em, es] = this.form.end_time.split(':').map(Number);
-
-                const startSec = sh * 3600 + sm * 60 + ss;
-                const endSec   = eh * 3600 + em * 60 + es;
+                const startSec = this.toSeconds(this.form.start_time);
+                const endSec   = this.toSeconds(this.form.end_time);
 
                 if (endSec <= startSec) {
                     errs.push('Giờ kết thúc phải sau giờ bắt đầu');
@@ -339,10 +402,15 @@ export default {
                 items:       d.items.map(i => {
                     const price    = i.product.price;
                     const discount = i.product.discount;
+                    const category = i.product.cate;
+                    const name = JSON.parse(i.product.name)[0].content;
+                    const cate = JSON.parse(category.name)[0].content;
                     const sale_price = Math.round(price * (1 - discount / 100));
 
                     return {
                         product_id:  i.product_id,
+                        name:    name,
+                        category:     cate,
                         price,
                         discount,
                         sale_price

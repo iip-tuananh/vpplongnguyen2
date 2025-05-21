@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\product\Product;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -24,13 +26,18 @@ class ProductController extends Controller
             })
             ->select('products.*','product_category.name as cate')->orderBy('id','DESC')
             ->get();
-        }else{
-            $data = Product::where('products.name', 'LIKE', '%'.$keyword.'%')
+        } else {
+            $data = Product::query()
             ->leftJoin('product_category', function($join){
                 $join->on('product_category.id','=','products.category');
             })
-            ->select('products.*','product_category.name as cate')->orderBy('id','DESC')
-            ->get()->toArray();
+            ->select('products.*','product_category.name as cate')->orderBy('id','DESC')->get();
+
+            $data = $data->filter(function($product) use ($keyword) {
+                $name = (languageName($product->name));
+
+                return $keyword === '' || Str::contains($name, $keyword);
+            })->values();
         }
         return response()->json([
             'data' => $data,

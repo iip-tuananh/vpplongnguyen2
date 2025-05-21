@@ -26,10 +26,11 @@ class FlashSaleController extends Controller
 
         $data = $data->get()->map(function($fs) {
             $ngayApDung = Carbon::parse($fs->start_at)
-                    ->format('d-m-Y H:i')
-                . ' – ' .
-                Carbon::parse($fs->end_at)
-                    ->format('d-m-Y H:i');
+                    ->format('d-m-Y')
+                . ' – ' . '(' .
+                Carbon::parse($fs->start_time)
+                    ->format('H:i') . ' - ' . Carbon::parse($fs->end_time)
+                ->format('H:i') . ')';
 
             $trangThai = $fs->status === 'active'
                 ? 'Đang kích hoạt'
@@ -50,7 +51,7 @@ class FlashSaleController extends Controller
 
     public function edit($id)
     {
-        $data = Flashsale::query()->with('items.product')->where([
+        $data = Flashsale::query()->with('items.product.cate')->where([
             'id'=> $id
         ])
             ->first();

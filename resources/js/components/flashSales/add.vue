@@ -53,8 +53,8 @@
                     </thead>
                     <tbody>
                     <tr v-for="(item, idx) in form.items" :key="idx">
-                        <td>{{ getProductName(item.product_id) || '—' }}</td>
-                        <td>{{ getCategoryName(item.product_id) || '—' }}</td>
+                        <td>{{ item.name || '—' }}</td>
+                        <td>{{ item.category || '—' }}</td>
                         <td>
                             <vs-input :value="formatCurrency(item.price)" disabled />
                         </td>
@@ -83,40 +83,59 @@
       </div>
 
 
-        <el-dialog
-            title="Chọn sản phẩm"
-            :visible.sync="showProductModal"
-            width="60%"
-        >
-            <vs-table
-                stripe
-                :data="products"
-                max-items="10"
-                pagination
+
+        <template>
+            <el-dialog
+                title="Chọn sản phẩm"
+                :visible.sync="showProductModal"
+                width="60%"
             >
-                <!-- <vs-th> phải nằm trong template slot="header" -->
-                <template slot="header">
-                    <vs-th>Tên sản phẩm</vs-th>
-                    <vs-th>Danh mục</vs-th>
-                    <vs-th width="100">Chọn</vs-th>
-                </template>
+                <!-- Search bar -->
+                <div class="flex items-center mb-4">
+                    <!-- Nhập text -->
+                    <el-input
+                        v-model="searchQuery"
+                        placeholder="Tìm theo tên sản phẩm..."
+                        clearable
+                        style="flex:1; margin-right: 8px;"
+                        @keyup.enter="searchProducts"
+                    />
+                    <!-- Nút tìm kiếm -->
+                    <el-button
+                        type="primary"
+                        icon="el-icon-search"
+                        @click="searchProducts"
+                    >
+                        Tìm kiếm
+                    </el-button>
+                </div>
 
-                <!-- body rows -->
-                <template slot="default" slot-scope="{ data }">
-                    <vs-tr v-for="item in data" :key="item.id">
-                        <vs-td>{{ item.name }}</vs-td>
-                        <vs-td>{{ item.category }}</vs-td>
-                        <vs-td class="text-center">
-                            <vs-button size="small" @click="addItemFromModal(item)">
-                                Chọn
-                            </vs-button>
-                        </vs-td>
-                    </vs-tr>
-                </template>
-            </vs-table>
-        </el-dialog>
-
-
+                <!-- Table -->
+                <vs-table
+                    stripe
+                    :data="products"
+                    max-items="10"
+                    pagination
+                >
+                    <template slot="header">
+                        <vs-th>Tên sản phẩm</vs-th>
+                        <vs-th>Danh mục</vs-th>
+                        <vs-th width="100">Chọn</vs-th>
+                    </template>
+                    <template slot="default" slot-scope="{ data }">
+                        <vs-tr v-for="item in data" :key="item.id">
+                            <vs-td>{{ item.name }}</vs-td>
+                            <vs-td>{{ item.category }}</vs-td>
+                            <vs-td class="text-center">
+                                <vs-button size="small" @click="addItemFromModal(item)">
+                                    Chọn
+                                </vs-button>
+                            </vs-td>
+                        </vs-tr>
+                    </template>
+                </vs-table>
+            </el-dialog>
+        </template>
 
         <!-- RIGHT: Settings -->
       <div class="col-md-4 grid-margin stretch-card">
@@ -208,6 +227,7 @@ export default {
     data() {
         return {
             lang: [],
+            searchQuery: '',
             showLang: {
                 name: false,
                 description: false,
@@ -235,6 +255,19 @@ export default {
             setLoading:    'loadings',
             listLanguage:    'listLanguage',
         }),
+
+        async searchProducts() {
+            const res = await this.fetchProducts({ keyword: this.searchQuery });
+
+            this.products = res.data.map(p => ({
+                id: p.id,
+                name: JSON.parse(p.name)[0].content,
+                category: JSON.parse(p.cate)[0].content,
+                price:    p.price,
+                discount: p.discount
+            }));
+        },
+
         listLang() {
             this.listLanguage()
                 .then((response) => {
@@ -243,6 +276,7 @@ export default {
                 })
                 .catch((error) => {});
         },
+
         async openProductModal() {
             // 1. Load data (bằng Vuex action hoặc axios)
             const res = await this.fetchProducts({ keyword: '' });
@@ -299,13 +333,23 @@ export default {
         },
 
         addItemFromModal(product) {
+            const exists = this.form.items.some(item => item.product_id === product.id);
+            if (exists) {
+                this.$message.warning('Sản phẩm này đã được thêm rồi');
+                return;
+            }
+
             const sale = this.computeSalePrice(product.price, product.discount);
+
             this.form.items.push({
                 product_id:     product.id,
+                name:    product.name,
+                category:     product.category,
                 price:      product.price,
                 discount:   product.discount,
                 sale_price: sale
             });
+
             this.showProductModal = false;
         },
 
@@ -324,6 +368,21 @@ export default {
             this.form.items.splice(idx, 1);
         },
 
+        toSeconds(time) {
+            let h, m, s;
+            if (typeof time === 'string') {
+                // "HH:mm:ss"
+                [h, m, s] = time.split(':').map(Number);
+            } else if (time instanceof Date) {
+                h = time.getHours();
+                m = time.getMinutes();
+                s = time.getSeconds();
+            } else {
+                return 0;
+            }
+            return h * 3600 + m * 60 + s;
+        },
+
         async saveFlashSale() {
             const errs = [];
             if (!this.form.name[0].content)      errs.push('Tên không được để trống');
@@ -331,11 +390,8 @@ export default {
             if (!this.form.start_at || !this.form.start_time || !this.form.end_time ) {
                 errs.push('Chọn đủ thời gian, giờ băt đầu và kết thúc');
             } else {
-                const [sh, sm, ss] = this.form.start_time.split(':').map(Number);
-                const [eh, em, es] = this.form.end_time.split(':').map(Number);
-
-                const startSec = sh * 3600 + sm * 60 + ss;
-                const endSec   = eh * 3600 + em * 60 + es;
+                const startSec = this.toSeconds(this.form.start_time);
+                const endSec   = this.toSeconds(this.form.end_time);
 
                 if (endSec <= startSec) {
                     errs.push('Giờ kết thúc phải sau giờ bắt đầu');
@@ -368,15 +424,15 @@ export default {
             const langRes = await this.$store.dispatch('listLanguage');
             this.lang = langRes.data;
 
-            const res = await this.fetchProducts({ keyword: '' });
-            this.products = res.data.map(p => ({
-                id:   p.id,
-                name: Array.isArray(p.name)
-                    ? p.name[0].content
-                    : (JSON.parse(p.name)[0]?.content || ''),
-
-            }));
-            console.log('Loaded products:', this.products);
+            // const res = await this.fetchProducts({ keyword: '' });
+            // this.products = res.data.map(p => ({
+            //     id:   p.id,
+            //     name: Array.isArray(p.name)
+            //         ? p.name[0].content
+            //         : (JSON.parse(p.name)[0]?.content || ''),
+            //
+            // }));
+            // console.log('Loaded products:', this.products);
         } catch (err) {
             console.error('Load dữ liệu thất bại:', err);
         } finally {

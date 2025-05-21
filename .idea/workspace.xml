@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3536867a-781b-4811-a69b-2a7f6ac1beec" name="Changes" comment="" />
+    <list default="true" id="3536867a-781b-4811-a69b-2a7f6ac1beec" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/FlashSale/FlashSaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/FlashSale/FlashSaleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Product/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Product/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/flashSales/add.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/flashSales/add.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/flashSales/edit.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/flashSales/edit.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/main/head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/main/head.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/main/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/main/master.blade.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -202,7 +212,7 @@
       <workItem from="1747450210090" duration="299000" />
       <workItem from="1747588369513" duration="19444000" />
       <workItem from="1747657992343" duration="29381000" />
-      <workItem from="1747776269139" duration="8664000" />
+      <workItem from="1747776269139" duration="14785000" />
     </task>
     <servers />
   </component>
