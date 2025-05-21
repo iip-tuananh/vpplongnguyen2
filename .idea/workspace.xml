@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3536867a-781b-4811-a69b-2a7f6ac1beec" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/frontend/css/components50e9.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/frontend/css/components50e9.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/header/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/header/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/main/head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/main/head.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/main/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/main/master.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/flashsale/FlashSaleItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/flashsale/FlashsaleItem.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/flashsale/Flashsale.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/flashsale/Flashsale.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,7 +208,7 @@
       <workItem from="1747657992343" duration="29381000" />
       <workItem from="1747776269139" duration="15831000" />
       <workItem from="1747800170924" duration="118000" />
-      <workItem from="1747807276326" duration="3078000" />
+      <workItem from="1747807276326" duration="4186000" />
     </task>
     <servers />
   </component>
@@ -247,7 +245,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/models/flashsale/Flashsale.php</url>
-          <line>97</line>
+          <line>100</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">

@@ -5,7 +5,7 @@ namespace App\models\flashsale;
 use App\models\product\Product;
 use Illuminate\Database\Eloquent\Model;
 
-class FlashSaleItem extends Model
+class FlashsaleItem extends Model
 {
     protected $table = "flash_sale_items";
 

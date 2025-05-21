@@ -9,7 +9,10 @@ use Image,Auth;
 use App\Customer;
 use App\models\product\Category;
 use App\models\product\TypeProduct;
-use  App\models\product\TypeProductTwo;
+use App\models\product\TypeProductTwo;
+
+use App\models\flashsale\FlashsaleItem;
+
 class Flashsale extends Model
 {
     protected $table = "flash_sales";
@@ -86,7 +89,7 @@ class Flashsale extends Model
                 $query->items()->delete();
 
                 foreach ($request->items as $item ) {
-                    $flashSaleItem = new FlashSaleItem();
+                    $flashSaleItem = new FlashsaleItem();
                     $flashSaleItem->product_id = $item['product_id'];
                     $flashSaleItem->flash_sale_id = $query->id;
 
@@ -109,7 +112,7 @@ class Flashsale extends Model
             $query->save();
 
             foreach ($request->items as $item ) {
-                $flashSaleItem = new FlashSaleItem();
+                $flashSaleItem = new FlashsaleItem();
                 $flashSaleItem->product_id = $item['product_id'];
                 $flashSaleItem->flash_sale_id = $query->id;
 
