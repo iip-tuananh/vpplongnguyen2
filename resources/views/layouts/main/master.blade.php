@@ -4,14 +4,40 @@
         @include('layouts.main.head')
     </head>
    <body class="ega-theme index ">
+   <div class="top-banner position-relative" style="background: #302a5b">
+       <div class="text-center px-0" >
+           <a class="position-relative block md:hidden"
+              style=""
+              href="{{route('home')}}"
+              title="top banner">
+               <img class='img-fluid position-absolute ' src="https://bizweb.dktcdn.net/100/450/748/themes/872052/assets/banner_top.jpg?1663035745304"
+                    style="left:0"
+                    alt="top banner"
 
-   <a href="#"
-      title="Siêu khuyến mãi giảm giá sốc"
-      class="banner-top d-none d-md-block">
-       <img
-           src="https://bizweb.dktcdn.net/100/450/748/themes/872052/assets/banner_top.jpg?1663035745304"
-           alt="Siêu khuyến mãi giảm giá sốc">
-   </a>
+                    height="39"
+                    loading="lazy"
+               >
+           </a>
+           <a class="position-relative hidden md:block"
+              style="max-height: 44px;height:  calc(44 * 100vw /1416)"
+              href="{{route('home')}}"
+              title="top banner">
+               <picture>
+                   <source media="(max-width: 480px)" srcset="https://bizweb.dktcdn.net/100/450/748/themes/872052/assets/banner_top.jpg?1663035745304">
+                   <img class='img-fluid position-absolute ' src="https://bizweb.dktcdn.net/100/450/748/themes/872052/assets/banner_top.jpg?1663035745304"
+                        style="left:0; height: 44px !important; width: 100% !important;"
+                        alt="top banner"
+
+                        height="39"
+                        loading="lazy"
+                   >
+               </picture>
+           </a>
+       </div>
+   </div>
+{{--   <a href="#" title="Siêu khuyến mãi giảm giá sốc" class="d-md-block d-none">--}}
+{{--       <img alt="Siêu khuyến mãi giảm giá sốc" class="lazyload loaded" src="https://bizweb.dktcdn.net/100/450/748/themes/872052/assets/banner_top.jpg?1663035745304" data-src="https://bizweb.dktcdn.net/100/450/748/themes/872052/assets/banner_top.jpg?1663035745304" data-was-processed="true">--}}
+{{--   </a>--}}
 
       @include('layouts.header.index')
       @include('layouts.main.sub-header')

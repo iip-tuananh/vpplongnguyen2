@@ -1,4 +1,4 @@
-<header class="header fixed  flex items-center justify-center  top-0 py-4-5 h-max ">
+<header class="header flex items-center justify-center  top-0 py-4-5 h-max ">
     <div class="container">
         @php $total = 0; $qty = 0 ; @endphp
         @foreach((array) session('cart') as $id => $details)

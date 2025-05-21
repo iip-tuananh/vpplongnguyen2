@@ -291,7 +291,7 @@
 
 .portal-dialog {
     position: fixed !important;
-    z-index: var(--dialog-index, 90000);
+    z-index: var(--dialog-index, 3000);
     top: 0 !important;
     left: 0;
     width: 100%;
@@ -346,7 +346,7 @@
     background-color: var(--color-header-bg);
     color: var(--color-header);
     min-height: var(--header-height);
-    padding: var(--spacing-4-5) 0;
+    /*padding: var(--spacing-4-5) 0;*/
     z-index: 2000
 }
 
