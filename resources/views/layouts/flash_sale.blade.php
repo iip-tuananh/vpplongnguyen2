@@ -20,7 +20,7 @@
             <div class="container">
                 <ul class="  breadcrumb py-3 flex flex-wrap items-center text-xs md:text-sm">
                     <li class="home">
-                        <a class="link" href="index.html" title="Trang chủ"><span>Trang chủ</span></a>
+                        <a class="link" href="{{ route('home') }}" title="Trang chủ"><span>Trang chủ</span></a>
                         <span class="mx-1 md:mx-2 inline-block">&nbsp;/&nbsp;</span>
                     </li>
                     <li>
@@ -44,20 +44,20 @@
                     <picture>
                         <source
                             media="(min-width: 1200px)"
-                            srcset="{{$img[0]}}">
+                            srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}">
                         <source
                             media="(min-width: 768px)"
-                            srcset="{{$img[0]}}"
+                            srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
                             data-srcset="../bizweb.dktcdn.net/100/502/483/themes/1011801/assets/flashsale_banner50e9.png?1746694962638"
                         >
                         <source
                             media="(max-width: 767px)"
-                            srcset="{{$img[0]}}"
+                            srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
                             data-srcset="../bizweb.dktcdn.net/thumb/large/100/502/483/themes/1011801/assets/flashsale_banner50e9.png?1746694962638"
                         >
                         <img
                             class="object-contain mx-auto"
-                            src="{{$img[0]}}"
+                            src="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
                             width="1432"
                             height="120"
                             alt="Khuyến mãi"
@@ -146,7 +146,7 @@
                                                         </div>
                                                         <picture>
                                                             <source media="(max-width: 600px)"
-                                                                    srcset="{{$img[0]}}">
+                                                                    srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}">
                                                             <img
                                                                 class="card-product__image max-h-full w-auto aspect-square object-contain scale-[var(--image-scale)]  absolute top-1/2 left-1/2   -translate-x-1/2 -translate-y-1/2 transition duration-300 ease-out  group-hover/card:opacity-0  "
                                                                 width="480"
@@ -154,13 +154,13 @@
                                                                 decoding="async"
                                                                 loading="lazy"
                                                                 style="--image-scale:1"
-                                                                src="{{$img[0]}}"
+                                                                src="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
                                                                 alt="{{languageName($pro->name)}}"
                                                             >
                                                         </picture>
                                                         <picture>
                                                             <source media="(max-width: 600px)"
-                                                                    srcset="{{$img[0]}}">
+                                                                    srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}">
                                                             <img
                                                                 class="card-product__image-2 max-h-full w-auto aspect-square object-contain  opacity-0 scale-[var(--image-scale)]  absolute top-1/2 left-1/2   -translate-x-1/2 -translate-y-1/2 z-[0] group-hover/card:opacity-1 group-hover/card:z-[1] group-hover/card:opacity-100 transition duration-300 ease-out"
                                                                 width="480"
@@ -168,7 +168,7 @@
                                                                 decoding="async"
                                                                 loading="lazy"
                                                                 style="--image-scale:1"
-                                                                src="{{$img[0]}}"
+                                                                src="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
                                                             >
                                                         </picture>
                                                     </a>
