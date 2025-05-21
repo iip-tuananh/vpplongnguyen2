@@ -145,50 +145,41 @@
                   class="cro-btns-container w-full h-full justify-center items-center gap-0.5 grid grid-cols-[repeat(auto-fit,minmax(0,1fr))]">
                   <a class="cro-btn-item cro-btn-item--1 w-auto flex-shrink-0 flex-grow-0 h-full py-0.5 px-0.5  text-foreground h-full flex flex-col justify-center items-center gap-0.5"
                      title="Khuyến mãi"
-                     href="collections/all.html"
+                     href="{{ route('flashSale') }}"
                      style="order:3">
                       <div class="w-4 h-4 relative ">
                           <img class="w-full h-full object-contain" alt="Khuyến mãi"
-                               src="../bizweb.dktcdn.net/thumb/small/100/502/483/themes/1011801/assets/cro-btn-1-icon50e9.png?1746694962638" loading="lazy" />
+                               src="/frontend/images/cro-btn-1-icon50e9.png?1746694962638" loading="lazy" />
                       </div>
                       <div class="text-ellipsis overflow-hidden  max-w-full text-xs text-center line-clamp-1">Khuyến mãi</div>
                   </a>
                   <a class="cro-btn-item cro-btn-item--2 w-auto flex-shrink-0 flex-grow-0 h-full py-0.5 px-0.5  text-foreground h-full flex flex-col justify-center items-center gap-0.5"
                      title="Sản phẩm"
-                     href="collections/all.html"
+                     href="{{ route('allProduct') }}"
                      style="order:4">
                       <div class="w-4 h-4 relative ">
                           <img class="w-full h-full object-contain" alt="Sản phẩm"
-                               src="../bizweb.dktcdn.net/thumb/small/100/502/483/themes/1011801/assets/cro-btn-2-icon50e9.png?1746694962638" loading="lazy" />
+                               src="/frontend/images/cro-btn-2-icon50e9.png?1746694962638" loading="lazy" />
                       </div>
                       <div class="text-ellipsis overflow-hidden  max-w-full text-xs text-center line-clamp-1">Sản phẩm</div>
                   </a>
-                  <a class="cro-btn-item cro-btn-item--3 w-auto flex-shrink-0 flex-grow-0 h-full py-0.5 px-0.5  text-foreground h-full flex flex-col justify-center items-center gap-0.5"
-                     title="Cửa hàng"
-                     href="pages/he-thong-cua-hang.html"
-                     style="order:3">
-                      <div class="w-4 h-4 relative ">
-                          <img class="w-full h-full object-contain" alt="Cửa hàng"
-                               src="../bizweb.dktcdn.net/thumb/small/100/502/483/themes/1011801/assets/cro-btn-3-icon50e9.png?1746694962638" loading="lazy" />
-                      </div>
-                      <div class="text-ellipsis overflow-hidden  max-w-full text-xs text-center line-clamp-1">Cửa hàng</div>
-                  </a>
+
                   <a class="cro-btn-item cro-btn-item--mess w-auto flex-shrink-0 flex-grow-0 h-full py-0.5 px-0.5  text-foreground h-full flex flex-col justify-center items-center gap-0.5"
                      title="Nhắn tin"
-                     href="https://m.me/168389884826236"
+                     href="https://m.me/{{ $setting->phone1 }}"
                      style="order:2">
                       <div class="w-4 h-4 relative ">
                           <img class="w-full h-full object-contain" alt="Nhắn tin"
-                               src="../bizweb.dktcdn.net/thumb/small/100/502/483/themes/1011801/assets/cro-btn-mess-icon50e9.png?1746694962638" loading="lazy" />
+                               src="/frontend/images/cro-btn-mess-icon50e9.png?1746694962638" loading="lazy" />
                       </div>
                       <div class="text-ellipsis overflow-hidden  max-w-full text-xs text-center line-clamp-1">Nhắn tin</div>
                   </a>
                   <a class="cro-btn-item cro-btn-item--hotline w-auto flex-shrink-0 flex-grow-0 h-full py-0.5 px-0.5  text-foreground h-full flex flex-col justify-center items-center gap-0.5"
                      title="Gọi điện"
-                     href="tel:19006750"         style="order:1">
+                     href="tel:{{ $setting->phone1 }}"         style="order:1">
                       <div class="w-4 h-4 relative ">
                           <img class="w-full h-full object-contain" alt="Gọi điện"
-                               src="../bizweb.dktcdn.net/thumb/small/100/502/483/themes/1011801/assets/cro-btn-hotline-icon50e9.png?1746694962638" loading="lazy" />
+                               src="/frontend/images/cro-btn-hotline-icon50e9.png?1746694962638" loading="lazy" />
                       </div>
                       <div class="text-ellipsis overflow-hidden  max-w-full text-xs text-center line-clamp-1">Gọi điện</div>
                   </a>

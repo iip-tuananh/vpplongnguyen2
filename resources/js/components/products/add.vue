@@ -149,11 +149,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <label>Chọn thuộc tính</label>
+                        <label>Thuộc tính mở rộng</label>
                         <vs-select
                             v-model="selectedAttrs"
                             :multiple="true"
-                            placeholder="Chọn attribute"
+                            placeholder="Chọn thuộc tính"
                             @change="onSelectAttrs"
                         >
                             <vs-select-item

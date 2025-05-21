@@ -29,6 +29,51 @@
                          height="34" >
                 </a>
             </div>
+
+            <style>
+                .header-search {
+                    display: flex;
+                    align-items: center; /* căn giữa theo chiều dọc */
+                    gap: 2rem;           /* khoảng cách giữa 2 block */
+                }
+                .header-search .search-bar {
+                    flex: 2;             /* mặc định là flex:1, giờ tăng thành 2 */
+                    max-width: 800px;    /* hoặc bạn set pixel cụ thể */
+                }
+                /* Search-bar chiếm hết không gian còn lại */
+                .header-search .search-bar {
+                    flex: 1;
+                }
+
+                /* Contact-time hiển thị inline-flex và căn giữa nội dung */
+                .contact-time {
+                    display: inline-flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    padding-left: 45px;
+                    background-position: center left;
+                    background-size: 32px;
+                    background-repeat: no-repeat;
+                    height: 40px;
+                    /* nếu muốn dịch chuyển lùi vào gần search-bar hơn: */
+                    /* margin-left: 0.5rem; */
+                }
+
+                /* Giữ nguyên style con */
+                .contact-time p {
+                    text-transform: uppercase;
+                    margin: 0;
+                    padding: 0;
+                    font-weight: bold;
+                    line-height: 1;
+                }
+
+                @media (max-width: 767px) {
+                    .contact-time {
+                        display: none !important;
+                    }
+                }
+            </style>
             <div class="mx-auto header-search hidden md:block order-1 lg:order-none">
                 <div class="search-bar relative hidden md:block">
                     <quick-search class="quick-search">
@@ -71,7 +116,18 @@
                         </form>
                     </quick-search>
                 </div>
+
+
+                <div class="contact-time lazyload" data-src="http://vpplongnguyen.com.vn/frontend/images/ct-time.png" data-was-processed="true" style="background-image: url(&quot;http://vpplongnguyen.com.vn/frontend/images/ct-time.png&quot;);">
+                    <p>
+                        Thời gian mở cửa
+                    </p>
+                    <span>8h - 21h Từ T2 - CN</span>
+                </div>
+
             </div>
+
+
             <div class="header-icon-wrapper flex items-center ml-auto gap-0 lg:gap-5 xl:gap-[var(--spacing-7)] ">
                 <portal-opener class=" search-opener block md:hidden">
                     <a data-portal="#search-drawer" href="search.html" title="tìm kiếm" class="header-icon-group flex gap-2 items-center search-group  hover:bg-neutral-50 active:scale-95 transition-all duration-150 px-2 py-1 rounded-sm ">

@@ -125,23 +125,43 @@
 
             <!-- 4. Start / End Datetime -->
             <div class="form-group">
-              <label>Bắt đầu</label>
+              <label>Ngày bắt đầu</label>
               <el-date-picker
                   v-model="form.start_at"
-                  type="datetime"
+                  type="date"
                   placeholder="Chọn thời gian"
                   style="width:100%"
               />
             </div>
-            <div class="form-group">
-              <label>Kết thúc</label>
-              <el-date-picker
-                  v-model="form.end_at"
-                  type="datetime"
-                  placeholder="Chọn thời gian"
-                  style="width:100%"
-              />
-            </div>
+              <div class="form-group">
+                  <label>Giờ bắt đầu</label>
+                   <el-time-picker
+                      v-model="form.start_time"
+                      type="time"
+                      placeholder="Chọn thời gian"
+                      style="width:100%"
+                  />
+              </div>
+
+              <div class="form-group">
+                  <label>Giờ kết thúc</label>
+                  <el-time-picker
+                      v-model="form.end_time"
+                      type="time"
+                      placeholder="Chọn thời gian"
+                      style="width:100%"
+                  />
+              </div>
+
+<!--            <div class="form-group">-->
+<!--              <label>Kết thúc</label>-->
+<!--              <el-date-picker-->
+<!--                  v-model="form.end_at"-->
+<!--                  type="datetime"-->
+<!--                  placeholder="Chọn thời gian"-->
+<!--                  style="width:100%"-->
+<!--              />-->
+<!--            </div>-->
 
             <!-- 5. Trạng thái -->
             <div class="form-group">
@@ -200,8 +220,9 @@ export default {
                 name:      [{ lang_code: 'vi', content: '' }],
                 description:[{ lang_code: 'vi', content: '' }],
                 start_at:  null,
-                end_at:    null,
-                status:    'scheduled',
+                start_time:    null,
+                end_time:    null,
+                status:    'inactive',
                 images:   [],
                 items: [],
             },
@@ -307,14 +328,17 @@ export default {
             const errs = [];
             if (!this.form.name[0].content)      errs.push('Tên không được để trống');
 
-            if (!this.form.start_at || !this.form.end_at) {
-                errs.push('Chọn đủ thời gian băt đầu và kết thúc');
+            if (!this.form.start_at || !this.form.start_time || !this.form.end_time ) {
+                errs.push('Chọn đủ thời gian, giờ băt đầu và kết thúc');
             } else {
-                const start = new Date(this.form.start_at);
-                const end   = new Date(this.form.end_at);
+                const [sh, sm, ss] = this.form.start_time.split(':').map(Number);
+                const [eh, em, es] = this.form.end_time.split(':').map(Number);
 
-                if (end <= start) {
-                    errs.push('Thời gian kết thúc phải sau thời gian bắt đầu');
+                const startSec = sh * 3600 + sm * 60 + ss;
+                const endSec   = eh * 3600 + em * 60 + es;
+
+                if (endSec <= startSec) {
+                    errs.push('Giờ kết thúc phải sau giờ bắt đầu');
                 }
             }
 

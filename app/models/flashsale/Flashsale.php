@@ -22,24 +22,39 @@ class Flashsale extends Model
     protected $casts = [
         'name' => 'array',
         'start_at' => 'datetime:Y-m-d H:i:s',
-        'end_at' => 'datetime:Y-m-d H:i:s',
+        'start_time' => 'time:H:i:s',
+        'end_time' => 'time:H:i:s',
     ];
+
 
     public function getStatusLabelAttribute(): string
     {
         $now = Carbon::now();
 
-        if ($now->between($this->start_at, $this->end_at)) {
+        $start = Carbon::createFromFormat(
+            'Y-m-d H:i:s',
+            $this->start_at->format('Y-m-d') . ' ' . $this->start_time
+        );
+
+        $end = Carbon::createFromFormat(
+            'Y-m-d H:i:s',
+            $this->start_at->format('Y-m-d') . ' ' . $this->end_time
+        );
+
+        if ($end->lt($start)) {
+            $end->addDay();
+        }
+
+        if ($now->between($start, $end)) {
             return 'ongoing';
         }
 
-        if ($now->lt($this->start_at)) {
+        if ($now->lt($start)) {
             return 'upcoming';
         }
 
         return 'ended';
     }
-
     public function items() {
         return $this->hasMany(FlashsaleItem::class,'flash_sale_id');
     }
@@ -47,6 +62,13 @@ class Flashsale extends Model
     public function createOrEdit($request)
     {
         $id = $request->id;
+        $start = Carbon::parse($request->start_time)
+            ->setTimezone('Asia/Ho_Chi_Minh')
+            ->format('H:i:s');
+        $end = Carbon::parse($request->end_time)
+            ->setTimezone('Asia/Ho_Chi_Minh')
+            ->format('H:i:s');
+
         if($id){
             $query = Flashsale::find($id);
             if($query){
@@ -55,7 +77,8 @@ class Flashsale extends Model
                 $query->images = json_encode($request->images);
                 $query->description = json_encode($request->description);
                 $query->start_at = Carbon::parse($request->start_at)->setTimezone('Asia/Ho_Chi_Minh');
-                $query->end_at = Carbon::parse($request->end_at)->setTimezone('Asia/Ho_Chi_Minh');
+                $query->start_time = $start;
+                $query->end_time = $end;
                 $query->status = $request->status;
 
                 $query->save();
@@ -79,7 +102,8 @@ class Flashsale extends Model
             $query->images = json_encode($request->images);
             $query->description = json_encode($request->description);
             $query->start_at = Carbon::parse($request->start_at)->setTimezone('Asia/Ho_Chi_Minh');
-            $query->end_at = Carbon::parse($request->end_at)->setTimezone('Asia/Ho_Chi_Minh');
+            $query->start_time = $start;
+            $query->end_time = $end;
             $query->status = $request->status;
 
             $query->save();

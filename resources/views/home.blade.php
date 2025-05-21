@@ -147,7 +147,7 @@
                                     </div>
                                     <div class="">
                                         <span class="font-semibold block">GIAO HỎA TỐC</span>
-                                        <span class="text-xs">Nội thành TP. HCM trong 4h</span>
+                                        <span class="text-xs">Nội thành trong 4h</span>
                                     </div>
                                 </div>
                                 <div class="swiper-slide mx-auto w-auto inline-flex h-inherit flex-nowrap item relative  gap-4 items-center py-3 md:py-4 px-4 xl:px-[var(--spacing-8)] ">
@@ -270,20 +270,12 @@
                                      </h2>
                                  </div>
 
-{{--                                <countdown-timer data-id="section-flashsale-1"--}}
-{{--                                                 data-countdown-type="dates"--}}
-{{--                                                 data-start-date="{{ \Carbon\Carbon::parse($flashSale->start_at)->format('d/m/Y') . ' ' . \Carbon\Carbon::parse($flashSale->start_at)->format('H:i:s') }}"--}}
-{{--                                                 data-end-date="{{ \Carbon\Carbon::parse($flashSale->end_at)->format('d/m/Y') . ' ' . \Carbon\Carbon::parse($flashSale->end_at)->format('H:i:s') }}"--}}
-{{--                                >--}}
-
-
                                     <countdown-timer
                                         data-id="section-flashsale-0"
                                         data-countdown-type="hours"
                                         data-start-date="{{ \Carbon\Carbon::parse($flashSale->start_at)->format('d/m/Y') }}"
-                                        data-end-date="{{ \Carbon\Carbon::parse($flashSale->end_at)->format('d/m/Y') }}"
-                                        data-start-time="{{ \Carbon\Carbon::parse($flashSale->start_at)->format('H:i:s') }}"
-                                        data-end-time="{{ \Carbon\Carbon::parse($flashSale->end_at)->format('H:i:s') }}"
+                                        data-start-time="{{ \Carbon\Carbon::parse($flashSale->start_time)->format('H:i:s') }}"
+                                        data-end-time="{{ \Carbon\Carbon::parse($flashSale->end_time)->format('H:i:s') }}"
                                         data-week="0,1,2,3,4,5,6"
                                     >
                                     <div class="flashsale__countdown-timer  flex-wrap  flashsale__countdown-wrapper flex items-center gap-2 md:gap-5 lg:w-auto w-full justify-center">
@@ -532,8 +524,8 @@
                                  data-limit="4"
                             >
                                 <div class="product-list grid tab-content-inner   grid-cols-2  lg:grid-cols-5    xl:grid-cols-5	 gap-2 mt-2">
-                                    @foreach ($item->product as $item)
-                                           @include('layouts.product.item',['pro'=>$item])
+                                    @foreach ($item->product as $pro)
+                                           @include('layouts.product.item',['pro'=>$pro])
                                     @endforeach
                                 </div>
                                 <a href="{{route('allListProCate',['danhmuc'=>$item->slug])}}" title="xem thêm"

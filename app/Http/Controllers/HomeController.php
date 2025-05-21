@@ -36,8 +36,6 @@ class HomeController extends Controller
             ->with(['items.product'])
             ->where('status', 'active')->first();
 
-
-
         return view('home', $data);
     }
 }

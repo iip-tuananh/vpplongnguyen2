@@ -32,7 +32,7 @@
                                 <ul class="main-menu">
                                     <li class="menu-item px-6 group hover:bg-neutral-50 -mt-[1px]  ">
                                         <a
-                                            href="collections/all.html"
+                                            href="#"
                                             class="menu-item__link  flex items-center gap-3.5 py-3 font-semibold"
                                             title="Tất cả sản phẩm"
                                         >
@@ -131,15 +131,15 @@
                             <div class="navigation-footer 4 border-t border-neutral-50 flex">
                                 <div class="w-1/2">
                                     <a
-                                        href="he-thong-cua-hang.html"
-                                        title="Hệ thống cửa hàng"
+                                        href="{{ route('home') }}"
+                                        title="Trang chủ"
                                         class="header-icon-group flex gap-2 items-center  hover:bg-neutral-50 transition-all duration-150 px-2 py-4 store-group"
                                     >
                                         <div class="header-icon w-[3.6rem] h-[3.6rem] p-2 rounded-sm flex items-center justify-center border border-neutral-50">
                                             <i class="icon icon-store"></i>
                                         </div>
                                         <div>
-                                            <span class="text-xs">Hệ thống cửa hàng</span>
+                                            <span class="text-xs">Trang chủ</span>
                                         </div>
                                     </a>
                                 </div>
@@ -153,7 +153,7 @@
                                             <i class="icon icon-calling-phone"></i>
                                         </div>
                                         <div>
-                                            <span class="text-xs">Hotline: <b>099999998</b>	</span>
+                                            <span class="text-xs">Hotline: <b>{{ $setting->phone1 }}</b>	</span>
                                         </div>
                                     </a>
                                 </div>

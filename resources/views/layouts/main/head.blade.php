@@ -2,13 +2,26 @@
 
 <meta charset="UTF-8">
 <meta name="theme-color" content="#ee1926">
-<link rel="canonical" href="index.html">
+<link rel="canonical" href="#">
 <meta name="revisit-after" content="2 days">
 
 <meta name="robots" content="noodp,index,follow">
 
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="description" content="Giao diện thiết kế tối ưu cho ngành hàng công nghệ, sản phẩm công thái học,..">
+<meta property="og:locale" content="vi_VN" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="@yield('title')" />
+<meta property="og:description" content="@yield('description')" />
+<meta property="og:url" content="{{\Request::url()}}" />
+<meta property="og:site_name" content="JicaFood" />
+<meta property="og:image" content="@yield('image')" />
+<meta property="og:image:secure_url" content="@yield('image')" />
+<meta property="og:image:width" content="548" />
+<meta property="og:image:height" content="343" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="@yield('description')" />
+<meta name="twitter:title" content="@yield('title')" />
+<meta name="twitter:image" content="@yield('image')" />
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 
@@ -90,16 +103,6 @@
 <link rel="preconnect" href="https://egany.com/" crossorigin>
 
 
-
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="EGA Gear">
-<meta property="og:image" content="https://bizweb.dktcdn.net/100/502/483/themes/1011801/assets/share_fb_home.jpg?1746694962638">
-<meta property="og:image:secure_url" content="https://bizweb.dktcdn.net/100/502/483/themes/1011801/assets/share_fb_home.jpg?1746694962638">
-
-<meta property="og:description" content="Giao diện thiết kế tối ưu cho ngành hàng công nghệ, sản phẩm công thái học,..">
-<meta property="og:url" content="https://ega-gear.mysapo.net/">
-<meta property="og:site_name" content="EGA Gear">
 <link rel="icon" href="/frontend/images/favicon50e9.png?1746694962638" type="image/x-icon">
 
 <link rel="preconnect" href="https://bizweb.dktcdn.net/">
