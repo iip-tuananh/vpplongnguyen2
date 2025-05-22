@@ -24,8 +24,21 @@
                         </button>
                     </portal-opener>
                 </div>
+                <style>
+                    .logo-img {
+                        width: 100px;
+                        height: auto;
+                    }
+
+                    @media (max-width: 767px) {
+                        .logo-img {
+                            width: 65px !important;
+                        }
+                    }
+                </style>
                 <a href="{{ route('home') }}" class="logo-wrapper" title="EGA Gear">
-                    <img src="{{$setting->logo}}" alt="logo EGA Gear" width="100"
+                    <img src="{{$setting->logo}}" alt="{{ $setting->company }}"
+                         class="logo-img"
                          height="auto" >
                 </a>
             </div>
