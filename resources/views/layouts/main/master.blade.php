@@ -4,6 +4,7 @@
         @include('layouts.main.head')
     </head>
    <body class="ega-theme index ">
+   @include('layouts.main.alerts')
    <div class="top-banner position-relative" style="background: #302a5b">
        <div class="text-center px-0" >
            <a class="position-relative block md:hidden"

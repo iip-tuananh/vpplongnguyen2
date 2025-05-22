@@ -25,8 +25,8 @@
                     </portal-opener>
                 </div>
                 <a href="{{ route('home') }}" class="logo-wrapper" title="EGA Gear">
-                    <img src="{{$setting->logo}}" alt="logo EGA Gear" width="144"
-                         height="34" >
+                    <img src="{{$setting->logo}}" alt="logo EGA Gear" width="100"
+                         height="auto" >
                 </a>
             </div>
 

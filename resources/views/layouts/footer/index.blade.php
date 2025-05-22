@@ -13,11 +13,11 @@
                         loading="lazy"
                         src="{{$setting->logo}}"
                         alt="{{$setting->company}}"
-                        width="172"
+                        width="100"
                         height="44"
                     >
                 </a>
-                <div class="mb-3">
+                <div class="mb-3" style="text-align: justify">
                     {{$setting->webname}}
                 </div>
                 <div class="mb-3">
@@ -87,13 +87,24 @@
                 </div>
             </div>
 
-            <div class="footer-col ">
+            <style>
+                .fc-2 {
+                    margin-left: 30px;
+                }
+
+                @media (max-width: 767px) {
+                    .fc-2 {
+                        margin-left: 0 !important;
+                    }
+                }
+            </style>
+            <div class="footer-col fc-2 ">
                 <details open class="footer-details">
                     <summary class="text-base font-semibold mb-2 flex items-center justify-between">
                         Chính sách
                         <i class="icon icon-carret-right inline-block md:hidden"></i>
                     </summary>
-                    <ul class="list-menu space-y-4  list-disc pl-3.5">
+                    <ul class="list-menu space-y-4  list-disc pl-5.5">
                         @foreach ($pageContent as $item)
                             @if ($item->type == 'ho-tro-khanh-hang')
                                 <li class="li_menu"><a href="{{route('pagecontent',['slug'=>$item->slug])}}" title="{{$item->title}}">{{$item->title}}</a></li>
@@ -105,7 +116,7 @@
                     <p class="text-base font-semibold mb-2">
                         Tổng đài hỗ trợ
                     </p>
-                    <ul class=" list-menu space-y-4  list-disc pl-3.5">
+                    <ul class=" list-menu space-y-4  list-disc pl-5.5">
                         <li>
                             <a class="link" href="tel:{{$setting->phone1}}" title="Gọi chúng tôi 24/7: {{$setting->phone1}}" >
                                 Gọi chúng tôi 24/7: {{$setting->phone1}}
@@ -114,8 +125,28 @@
                     </ul>
                 </div>
             </div>
-            <div class="footer-col">
+
+            <div class="footer-col ">
+                <details open class="footer-details">
+                    <summary class="text-base font-semibold mb-2 flex items-center justify-between">
+                        Danh mục sản phẩm
+                        <i class="icon icon-carret-right inline-block md:hidden"></i>
+                    </summary>
+                    <ul class="list-menu space-y-4  list-disc pl-5.5">
+
+                            @foreach ($categoryhome as $item)
+                                <li class="li_menu">
+                                    <a class="link " data-prefetch href="{{route('allListProCate',['danhmuc'=>$item->slug])}}" title="{{languageName($item->name)}}">
+                                        {{languageName($item->name)}}
+                                    </a>
+                                </li>
+                            @endforeach
+
+                    </ul>
+                </details>
             </div>
+
+
             <div class="footer-col">
                 <details open class="footer-details">
                     <summary class="text-base font-semibold mb-2 flex items-center justify-between">
