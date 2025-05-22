@@ -50,13 +50,13 @@
                                             <div class="swiper-slide overflow-hidden rounded-sm"  style="aspect-ratio: 1064 / 533 "  >
                                                 <a class="block" href="{{ $bannerPrimary->link }}" title="acer-giam-soc-2024">
                                                     <picture>
-                                                        <source media="(max-width: 480px)" srcset="{{$bannerPrimary->image}}">
+                                                        <source media="(max-width: 480px)" srcset="{{str_replace('http://version2.vpplongnguyen.com.vn', '', $bannerPrimary->image)}}">
                                                         <img
                                                             class="block mx-auto w-auto object-contain hover:scale-105 transition-transform  duration-500  transition-time ease-linear"
                                                             width="1064"
                                                             height="533"
-                                                            src="{{$bannerPrimary->image}}"
-                                                            alt="acer-giam-soc-2024"
+                                                            src="{{str_replace('http://version2.vpplongnguyen.com.vn', '', $bannerPrimary->image)}}"
+                                                            alt=""
                                                             fetchpriority= "high"
                                                         >
                                                     </picture>
