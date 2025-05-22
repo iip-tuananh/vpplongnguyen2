@@ -44,20 +44,20 @@
                     <picture>
                         <source
                             media="(min-width: 1200px)"
-                            srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}">
+                            srcset="{{str_replace('http://version2.vpplongnguyen.com.vn', '', $img[0])}}">
                         <source
                             media="(min-width: 768px)"
-                            srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
-                            data-srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
+                            srcset="{{str_replace('http://version2.vpplongnguyen.com.vn', '', $img[0])}}"
+                            data-srcset="{{str_replace('http://version2.vpplongnguyen.com.vn', '', $img[0])}}"
                         >
                         <source
                             media="(max-width: 767px)"
-                            srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
-                            data-srcset="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
+                            srcset="{{str_replace('http://version2.vpplongnguyen.com.vn', '', $img[0])}}"
+                            data-srcset="{{str_replace('http://version2.vpplongnguyen.com.vn', '', $img[0])}}"
                         >
                         <img
                             class="object-contain mx-auto"
-                            src="{{str_replace('http://vpplongnguyen.com.vn', '', $img[0])}}"
+                            src="{{str_replace('http://version2.vpplongnguyen.com.vn', '', $img[0])}}"
                             width="1432"
                             height="120"
                             alt="Khuyến mãi"
