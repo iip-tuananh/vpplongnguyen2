@@ -39,6 +39,33 @@
 
                                 }
                                 </script>
+
+                                <style>
+                                    .swiper-slide {
+                                        /* nếu đang có overflow:hidden, bạn có thể xóa hoặc đổi thành visible */
+                                        overflow: visible;
+                                        aspect-ratio: 1064 / 533;
+                                    }
+
+                                    .swiper-slide a {
+                                        display: block;
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+
+                                    .swiper-slide img {
+                                        display: block;
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: fill;   /* hiển thị toàn bộ ảnh, giữ tỉ lệ */
+                                        transition: transform .5s ease;
+                                    }
+
+                                    .swiper-slide img:hover {
+                                        transform: scale(1.05);
+                                    }
+
+                                </style>
                                 <div class=" w-full swiper overflow-hidden ">
                                     <div class="swiper-wrapper  ">
                                         @php
@@ -65,8 +92,6 @@
                                         @endforeach
 
 
-
-
                                         @foreach($bannersSecondary as $bannerSecondary)
                                             <div class="swiper-slide overflow-hidden rounded-sm  swiper-hidden-desktop" >
                                                 <a href="{{ $bannerSecondary->link }}" title="{{ $bannerSecondary->title }}" >
@@ -89,10 +114,40 @@
 
 
 
+                        <style>
+                            .banner-row {
+                                display: flex;
+                                gap: 0.5rem;
+                                justify-content: center;
+                                align-items: center;
+                            }
+
+                            .banner-row a {
+                                display: block;
+                                width: 344px;
+                                height: 172px;
+                                overflow: hidden;
+                                border-radius: 4px; /* nếu cần */
+                            }
+
+                            .banner-row a img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: fill;
+                                transition: transform .3s ease;
+                            }
+
+                            .banner-row a img:hover {
+                                transform: scale(1.05);
+                            }
+                        </style>
                         <div class="hidden md:flex w-100 lg:w-3/12 ">
-                            <div class="gap-2 flex lg:flex-col justify-center lg:justify-start items-center">
+                            <div class="banner-row gap-2 flex lg:flex-col justify-center lg:justify-start items-center">
                                 @foreach($bannersSecondary as $bannerSecondary)
-                                    <a href="{{ $bannerSecondary->link }}" title="{{ $bannerSecondary->title }}" class="block overflow-hidden rounded-sm" style="aspect-ratio: 344 / 172 ">
+                                    <a href="{{ $bannerSecondary->link }}"
+                                       title="{{ $bannerSecondary->title }}"
+                                       class="block w-[344px] h-[172px] rounded-sm overflow-hidden"
+                                     >
                                         <img
                                             class="block rounded-sm mx-auto object-contain hover:scale-105 transition-transform  duration-300  transition-time ease-linear max-w-full"
                                             loading="lazy"
