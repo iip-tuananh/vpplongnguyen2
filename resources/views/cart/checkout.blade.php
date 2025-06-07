@@ -6,7 +6,7 @@
         {{ $setting->company }}- Thanh toán đơn hàng
     </title>
 
-    <meta name="description" content="EGA Gear - Thanh to&#225;n đơn h&#224;ng" />
+    <meta name="description" content="{{ $setting->company }} - Thanh to&#225;n đơn h&#224;ng" />
     <style>
         .btn {
             display: inline-block;
@@ -2437,6 +2437,14 @@
 </head>
 <body>
 
+@php $total = 0; $qty = 0 ; @endphp
+@foreach((array) session('cart') as $id => $details)
+    @php
+        $total += ($details['price'] - ($details['price']*($details['discount']/100))) *
+        $details['quantity'] ;
+        $qty += $details['quantity'] ;
+    @endphp
+@endforeach
 
 <input id="reloadValue" type="hidden" name="reloadValue" value="" />
 <input id="is_vietnam" type="hidden" value="true" />
@@ -2447,7 +2455,7 @@
         <a href="/" class="logo">
 
 
-            <h1 class="logo-text">EGA Gear</h1>
+            <h1 class="logo-text">{{ $setting->company }}</h1>
 
         </a>
     </div>
@@ -2460,15 +2468,14 @@
                 <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg" class="order-summary-toggle-icon"><path d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"></path></svg>
             </div>
             <div class="order-summary-toggle-text order-summary-toggle-text-show">
-                <span>Hiển thị thông tin đơn hàng</span>
-                <svg width="11" height="6" xmlns="http://www.w3.org/2000/svg" class="order-summary-toggle-dropdown" fill="#000"><path d="M.504 1.813l4.358 3.845.496.438.496-.438 4.642-4.096L9.504.438 4.862 4.534h.992L1.496.69.504 1.812z"></path></svg>
+                <span>Thông tin đơn hàng</span>
             </div>
             <div class="order-summary-toggle-text order-summary-toggle-text-hide">
                 <span>Ẩn thông tin đơn hàng</span>
                 <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg" class="order-summary-toggle-dropdown" fill="#000"><path d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path></svg>
             </div>
-            <div class="order-summary-toggle-total-recap" data-checkout-payment-due-target="2200000000">
-                <span class="total-recap-final-price">22,000,000₫</span>
+            <div class="order-summary-toggle-total-recap" data-checkout-payment-due-target="{{ $total }}">
+                <span class="total-recap-final-price">{{number_format($total)}}₫</span>
             </div>
         </div>
     </div>
@@ -2480,64 +2487,6 @@
                 <div class="order-summary">
                     <div class="order-summary-sections">
 
-
-                        <div class="order-summary-section order-summary-section-discount" data-order-summary-section="discount">
-                            <form id="form_discount_add" accept-charset="UTF-8" method="post">
-                                <input name="utf8" type="hidden" value="✓">
-
-                                <div class="fieldset">
-                                    <div class="field  ">
-                                        <div class="field-input-btn-wrapper">
-                                            <div class="field-input-wrapper">
-                                                <label class="field-label" for="discount.code">Mã giảm giá</label>
-                                                <input placeholder="Mã giảm giá" class="field-input" data-discount-field="true" autocomplete="false" autocapitalize="off" spellcheck="false" size="30" type="text" id="discount.code" name="discount.code" value="" />
-                                            </div>
-                                            <button type="submit" class="field-input-btn btn btn-default btn-disabled">
-                                                <span class="btn-content">Sử dụng</span>
-                                                <i class="btn-spinner icon icon-button-spinner"></i>
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="order-summary-section order-summary-section-display-discount" data-order-summary-section="discount-display">
-                            <div>
-                                <div class="hrv-discount-choose-coupons">
-                                    <div>
-                                        <svg width="15" height="10" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.3337 5.3335V2.00016C17.3337 1.07516 16.5837 0.333496 15.667 0.333496H2.33366C1.41699 0.333496 0.675326 1.07516 0.675326 2.00016V5.3335C1.59199 5.3335 2.33366 6.0835 2.33366 7.00016C2.33366 7.91683 1.59199 8.66683 0.666992 8.66683V12.0002C0.666992 12.9168 1.41699 13.6668 2.33366 13.6668H15.667C16.5837 13.6668 17.3337 12.9168 17.3337 12.0002V8.66683C16.417 8.66683 15.667 7.91683 15.667 7.00016C15.667 6.0835 16.417 5.3335 17.3337 5.3335ZM15.667 4.11683C14.6753 4.69183 14.0003 5.77516 14.0003 7.00016C14.0003 8.22516 14.6753 9.3085 15.667 9.8835V12.0002H2.33366V9.8835C3.32533 9.3085 4.00033 8.22516 4.00033 7.00016C4.00033 5.76683 3.33366 4.69183 2.34199 4.11683L2.33366 2.00016H15.667V4.11683ZM9.83366 9.50016H8.16699V11.1668H9.83366V9.50016ZM8.16699 6.16683H9.83366V7.8335H8.16699V6.16683ZM9.83366 2.8335H8.16699V4.50016H9.83366V2.8335Z" fill="#318DBB"></path>
-                                        </svg>
-                                        <span>Xem thêm mã giảm giá</span>
-                                    </div>
-                                    <div id="list_short_coupon">
-                                        <span><span data-code="EGA500K">Giảm 500,000₫</span></span>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="hrv-coupons-popup">
-                                <div class="hrv-title-coupons-popup">
-                                    <p>Chọn giảm giá</p>
-                                    <div class="hrv-coupons-close-popup">
-                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M17.1663 2.4785L15.5213 0.833496L8.99968 7.35516L2.47801 0.833496L0.833008 2.4785L7.35468 9.00016L0.833008 15.5218L2.47801 17.1668L8.99968 10.6452L15.5213 17.1668L17.1663 15.5218L10.6447 9.00016L17.1663 2.4785Z" fill="#424242"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="hrv-content-coupons-code">
-                                    <h3 class="coupon_heading">Mã giảm giá của shop</h3>
-                                    <div class="hrv-discount-code-web">
-                                    </div>
-                                    <div class="hrv-discount-code-external">
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="hrv-coupons-popup-site-overlay"></div>
-                        </div>
 
 
 
@@ -2552,7 +2501,7 @@
     <div class="wrap">
         <div class="sidebar">
             <div class="sidebar-content">
-                <div class="order-summary order-summary-is-collapsed">
+                <div class="order-summary order-summary-is-expanded">
                     <h2 class="visually-hidden">Thông tin đơn hàng</h2>
                     <div class="order-summary-sections">
                         <div class="order-summary-section order-summary-section-product-list" data-order-summary-section="line-items">
@@ -2566,14 +2515,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @php $total = 0; $qty = 0 ; @endphp
-                                @foreach((array) session('cart') as $id => $details)
-                                    @php
-                                        $total += ($details['price'] - ($details['price']*($details['discount']/100))) *
-                                        $details['quantity'] ;
-                                        $qty += $details['quantity'] ;
-                                    @endphp
-                                @endforeach
+
 
                                 @foreach(session('cart') as $id => $details)
                                 <tr class="product" data-product-id="{{ $id }}">
@@ -2599,10 +2541,6 @@
 
                                 </tbody>
                             </table>
-                        </div>
-
-                        <div class="order-summary-section order-summary-section-discount" data-order-summary-section="discount">
-
                         </div>
 
 
@@ -2670,12 +2608,10 @@
                     a.logo{display: block;}
                     .logo-cus{
                         width: 100%; padding: 15px 0;
-                        text-align: ;
                     }
                     .logo-cus img{ max-height: 4.2857142857em  }
 
                     .logo-text{
-                        text-align: ;
                     }
 
                     @media (max-width: 767px){
@@ -2716,6 +2652,7 @@
                             <div class="section-content section-customer-information no-mb">
 
                                 <input name="utf8" type="hidden" value="✓">
+                                <input type="text" name="total_money" value="{{$total+28000}}" hidden>
 
                                 <div class="fieldset">
 
