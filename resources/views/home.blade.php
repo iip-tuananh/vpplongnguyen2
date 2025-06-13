@@ -57,7 +57,7 @@
                                         display: block;
                                         width: 100%;
                                         height: 100%;
-                                        object-fit: fill;   /* hiển thị toàn bộ ảnh, giữ tỉ lệ */
+                                        object-fit: cover;   /* hiển thị toàn bộ ảnh, giữ tỉ lệ */
                                         transition: transform .5s ease;
                                     }
 
@@ -133,7 +133,7 @@
                             .banner-row a img {
                                 width: 100%;
                                 height: 100%;
-                                object-fit: fill;
+                                object-fit: cover;
                                 transition: transform .3s ease;
                             }
 
@@ -308,7 +308,7 @@
             </div>
         </section>
 
-        @if($flashSale)
+        @if($flashSale && $flashSale->status_label != 'ended')
 
 
             <section class="section section-flashsale relative overflow-hidden w-full  {{ $flashSale->status_label == 'ended' ? 'flashsale-ended' : '' }}  " id="section-flashsale-0" style="--section-padding: 0;--section-margin: 0;--section-padding-mb: 0;--section-margin-mb: 0;--color-flashsale-bg: #000197;--color-flashsale-timer-bg: #ee1926;--color-flashsale-timer: #ffffff;--color-flashsale-process: #ee1926;">
