@@ -19,7 +19,7 @@
          <div class="container">
             <ul class="  breadcrumb py-3 flex flex-wrap items-center text-xs md:text-sm">
                <li class="home">
-                  <a class="link" href="index.html" title="Trang chủ"><span>Trang chủ</span></a>
+                  <a class="link" href="{{ route('home') }}" title="Trang chủ"><span>Trang chủ</span></a>
                   <span class="mx-1 md:mx-2 inline-block">&nbsp;/&nbsp;</span>
                </li>
 

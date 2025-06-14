@@ -199,61 +199,61 @@ class RecentviewProducts extends RelatedProducts {
     }
   }
 defineElement("media-gallery",MediaGallery);
-	class ProductForm extends HTMLElement {
-	  constructor() {
-		super();
-		this.form = this.querySelector('[action="/cart/add"]');
-		this.checkoutButton = this.querySelector('[name="buynow"]');
-		this.addToCartButton = this.querySelector('[name="addtocart"]');
-		this.checkoutButton &&
-		  this.checkoutButton.addEventListener("click", () => {
-			this.checkout = true;
-		  });
-		this.addToCartButton &&
-		  this.addToCartButton.addEventListener("click", () => {
-			this.checkout = false;
-		  });
-		this.form.addEventListener("submit", this.onSubmit.bind(this));
-	  }
-	  toggleLoading(loading) {
-		const button = this.checkout ? this.checkoutButton : this.addToCartButton;
-
-		if (loading) {
-		  button.classList.add("loading");
-		} else {
-		  button.classList.remove("loading");
-		}
-	  }
-	  onSubmit(e) {
-		e.preventDefault();
-		this.toggleLoading(true);
-		const data = serializeForm(this.form);
-		const url = this.form.action;
-		const { addToCartAction, productAddEvent } = window.themeConfigs;
-		fetch("/cart/add.js", {
-		  method: "POST",
-		  headers: {
-			"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-		  },
-		  body: data,
-		})
-		  .then((res) => res.json())
-		  .then((response) => {
-			publish(productAddEvent, {
-			  data: response,
-			  action: this.checkout ? "buynow" : addToCartAction,
-			});
-			this.toggleLoading(false);
-		  })
-		  .catch((err) => {
-			this.toggleLoading(false);
-			 publish(window.themeConfigs.error, {
-				error:  err
-			})
-		  });
-	  }
-	}
-	defineElement("product-form", ProductForm);
+	// class ProductForm extends HTMLElement {
+	//   constructor() {
+	// 	super();
+	// 	this.form = this.querySelector('[action="/cart/add"]');
+	// 	this.checkoutButton = this.querySelector('[name="buynow"]');
+	// 	this.addToCartButton = this.querySelector('[name="addtocart"]');
+	// 	this.checkoutButton &&
+	// 	  this.checkoutButton.addEventListener("click", () => {
+	// 		this.checkout = true;
+	// 	  });
+	// 	this.addToCartButton &&
+	// 	  this.addToCartButton.addEventListener("click", () => {
+	// 		this.checkout = false;
+	// 	  });
+	// 	this.form.addEventListener("submit", this.onSubmit.bind(this));
+	//   }
+	//   toggleLoading(loading) {
+	// 	const button = this.checkout ? this.checkoutButton : this.addToCartButton;
+    //
+	// 	if (loading) {
+	// 	  button.classList.add("loading");
+	// 	} else {
+	// 	  button.classList.remove("loading");
+	// 	}
+	//   }
+	//   onSubmit(e) {
+	// 	e.preventDefault();
+	// 	this.toggleLoading(true);
+	// 	const data = serializeForm(this.form);
+	// 	const url = this.form.action;
+	// 	const { addToCartAction, productAddEvent } = window.themeConfigs;
+	// 	fetch("/cart/add.js", {
+	// 	  method: "POST",
+	// 	  headers: {
+	// 		"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+	// 	  },
+	// 	  body: data,
+	// 	})
+	// 	  .then((res) => res.json())
+	// 	  .then((response) => {
+	// 		publish(productAddEvent, {
+	// 		  data: response,
+	// 		  action: this.checkout ? "buynow" : addToCartAction,
+	// 		});
+	// 		this.toggleLoading(false);
+	// 	  })
+	// 	  .catch((err) => {
+	// 		this.toggleLoading(false);
+	// 		 publish(window.themeConfigs.error, {
+	// 			error:  err
+	// 		})
+	// 	  });
+	//   }
+	// }
+	// defineElement("product-form", ProductForm);
 
 	class VariantPicker extends HTMLElement {
 	  constructor() {

@@ -39,20 +39,20 @@
     });
 </script>
 <script>
-    (function () {
-        function asyncLoad() {
-            var urls = ["https://buyx-gety.sapoapps.vn/assets/script.v2.js?store=ega-gear.mysapo.net"];
-            for (var i = 0; i < urls.length; i++) {
-                var s = document.createElement('script');
-                s.type = 'text/javascript';
-                s.async = true;
-                s.src = urls[i];
-                var x = document.getElementsByTagName('script')[0];
-                x.parentNode.insertBefore(s, x);
-            }
-        };
-        window.attachEvent ? window.attachEvent('onload', asyncLoad) : window.addEventListener('load', asyncLoad, false);
-    })();
+    // (function () {
+    //     function asyncLoad() {
+    //         var urls = ["https://buyx-gety.sapoapps.vn/assets/script.v2.js?store=ega-gear.mysapo.net"];
+    //         for (var i = 0; i < urls.length; i++) {
+    //             var s = document.createElement('script');
+    //             s.type = 'text/javascript';
+    //             s.async = true;
+    //             s.src = urls[i];
+    //             var x = document.getElementsByTagName('script')[0];
+    //             x.parentNode.insertBefore(s, x);
+    //         }
+    //     };
+    //     window.attachEvent ? window.attachEvent('onload', asyncLoad) : window.addEventListener('load', asyncLoad, false);
+    // })();
 </script>
 
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<script src="dist/js/stats.minbadf.js?v=96f2ff2"></script>
+{{--<script src="dist/js/stats.minbadf.js?v=96f2ff2"></script>--}}
 
 
 
@@ -80,22 +80,22 @@
 
 
 
-<script>
-    var eventsListenerScript = document.createElement('script');
-    eventsListenerScript.async = true;
+{{--<script>--}}
+{{--    var eventsListenerScript = document.createElement('script');--}}
+{{--    eventsListenerScript.async = true;--}}
 
-    eventsListenerScript.src = "dist/js/store_events_listener.min983a.js?v=8ee4227";
+{{--    eventsListenerScript.src = "dist/js/store_events_listener.min983a.js?v=8ee4227";--}}
 
-    document.getElementsByTagName('head')[0].appendChild(eventsListenerScript);
-</script>
-
-
+{{--    document.getElementsByTagName('head')[0].appendChild(eventsListenerScript);--}}
+{{--</script>--}}
 
 
 
 
 
-<meta name="keywords" content="EGA Gear, ega-gear.mysapo.net">
+
+
+<meta name="keywords" content="">
 
 
 <link rel="preconnect" href="https://bizweb.dktcdn.net/">
@@ -127,20 +127,20 @@
     });
 </script>
 <script>
-    (function () {
-        function asyncLoad() {
-            var urls = ["https://buyx-gety.sapoapps.vn/assets/script.v2.js?store=ega-gear.mysapo.net"];
-            for (var i = 0; i < urls.length; i++) {
-                var s = document.createElement('script');
-                s.type = 'text/javascript';
-                s.async = true;
-                s.src = urls[i];
-                var x = document.getElementsByTagName('script')[0];
-                x.parentNode.insertBefore(s, x);
-            }
-        };
-        window.attachEvent ? window.attachEvent('onload', asyncLoad) : window.addEventListener('load', asyncLoad, false);
-    })();
+    // (function () {
+    //     function asyncLoad() {
+    //         var urls = ["https://buyx-gety.sapoapps.vn/assets/script.v2.js?store=ega-gear.mysapo.net"];
+    //         for (var i = 0; i < urls.length; i++) {
+    //             var s = document.createElement('script');
+    //             s.type = 'text/javascript';
+    //             s.async = true;
+    //             s.src = urls[i];
+    //             var x = document.getElementsByTagName('script')[0];
+    //             x.parentNode.insertBefore(s, x);
+    //         }
+    //     };
+    //     window.attachEvent ? window.attachEvent('onload', asyncLoad) : window.addEventListener('load', asyncLoad, false);
+    // })();
 </script>
 
 
@@ -159,7 +159,7 @@
 </script>
 
 
-<script src="dist/js/stats.minbadf.js?v=96f2ff2"></script>
+{{--<script src="dist/js/stats.minbadf.js?v=96f2ff2"></script>--}}
 
 
 
@@ -168,14 +168,14 @@
 
 
 
-<script>
-    var eventsListenerScript = document.createElement('script');
-    eventsListenerScript.async = true;
+{{--<script>--}}
+{{--    var eventsListenerScript = document.createElement('script');--}}
+{{--    eventsListenerScript.async = true;--}}
 
-    eventsListenerScript.src = "dist/js/store_events_listener.min983a.js?v=8ee4227";
+{{--    eventsListenerScript.src = "dist/js/store_events_listener.min983a.js?v=8ee4227";--}}
 
-    document.getElementsByTagName('head')[0].appendChild(eventsListenerScript);
-</script>
+{{--    document.getElementsByTagName('head')[0].appendChild(eventsListenerScript);--}}
+{{--</script>--}}
 
 
 
@@ -227,7 +227,8 @@
     }
     const {publish, subscribe,validateInput, convertTime, defineElement, playAnimation, serializeForm } = window.EGATheme
 
-</script>    <link rel="preload" href="http://bizweb.dktcdn.net/100/502/483/themes/1011801/assets/baijamjuree-regular.ttf?1746694962638" as="font" type="font/truetype" crossorigin >
+</script>
+<link rel="preload" href="https://bizweb.dktcdn.net/100/502/483/themes/1011801/assets/baijamjuree-regular.ttf?1746694962638" as="font" type="font/truetype" crossorigin >
 
 <style>
     @font-face {
@@ -235,14 +236,14 @@
         font-style: normal;
         font-weight: 400;
         font-display: swap;
-        src: url(http://bizweb.dktcdn.net/100/502/483/themes/1011801/assets/baijamjuree-regular.ttf?1746694962638) format('truetype');
+        src: url(https://bizweb.dktcdn.net/100/502/483/themes/1011801/assets/baijamjuree-regular.ttf?1746694962638) format('truetype');
     }
     @font-face {
         font-family: 'Bai Jamjuree';
         font-style: normal;
         font-weight: 600;
         font-display: swap;
-        src: url(http://bizweb.dktcdn.net/100/502/483/themes/1011801/assets/baijamjuree-semibold.ttf?1746694962638) format('truetype');
+        src: url(https://bizweb.dktcdn.net/100/502/483/themes/1011801/assets/baijamjuree-semibold.ttf?1746694962638) format('truetype');
 
     }
 </style>
